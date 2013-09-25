@@ -30,9 +30,9 @@
 ;; Set up wrapping of pairs, with the possiblity of semicolons thrown into the mix
 
 (defun js2r--setup-wrapping-pair (open close)
-  (define-key js2-mode-map (kbd open) (λ (js2r--self-insert-wrapping open close)))
+  (define-key js2-mode-map (read-kbd-macro open) (λ (js2r--self-insert-wrapping open close)))
   (unless (s-equals? open close)
-    (define-key js2-mode-map (kbd close) (λ (js2r--self-insert-closing open close)))))
+    (define-key js2-mode-map (read-kbd-macro close) (λ (js2r--self-insert-closing open close)))))
 
 (define-key js2-mode-map (kbd ";")
   (λ (if (looking-at ";")
