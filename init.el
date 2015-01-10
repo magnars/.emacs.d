@@ -89,6 +89,9 @@
      groovy-mode
      prodigy
      cider
+     scala-mode2
+     ensime
+     haskell-mode
      )))
 
 (condition-case nil
@@ -185,6 +188,9 @@
 (require 'change-inner)
 (require 'multifiles)
 
+;;powerline
+(require 'setup-powerline)
+
 ;; Don't use expand-region fast keys
 (setq expand-region-fast-keys-enabled nil)
 
@@ -228,3 +234,5 @@
 ;; Conclude init by setting up specifics for the current user
 (when (file-exists-p user-settings-dir)
   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
+
+(require 'setup-vars)

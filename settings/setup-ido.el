@@ -31,7 +31,7 @@
 (defun my/ido-go-straight-home ()
   (interactive)
   (cond
-   ((looking-back "~/") (insert "projects/"))
+   ((looking-back "~/") (insert "workspace/"))
    ((looking-back "/") (insert "~/"))
    (:else (call-interactively 'self-insert-command))))
 

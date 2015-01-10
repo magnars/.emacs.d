@@ -95,7 +95,7 @@
                                       (number-to-string
                                        (length (number-to-string
                                                 (line-number-at-pos (point-max)))))
-                                      "d ")
+                                      "d \u2502")
                               line)
                       'face 'linum)))
 
