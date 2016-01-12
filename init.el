@@ -122,7 +122,7 @@
 (eval-after-load 'grep '(require 'setup-rgrep))
 (eval-after-load 'shell '(require 'setup-shell))
 (require 'setup-hippie)
-(require 'setup-yasnippet)
+;;(require 'setup-yasnippet)
 (require 'setup-perspective)
 (require 'setup-ffip)
 (require 'setup-html-mode)
@@ -148,7 +148,9 @@
   (add-hook it 'turn-on-smartparens-mode))
 
 ;; Language specific setup files
+; (require 'yasnippet) ; Requiring before js2-mode works
 (eval-after-load 'js2-mode '(require 'setup-js2-mode))
+(require 'yasnippet) ; After js-mode fails
 (eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
 (eval-after-load 'clojure-mode '(require 'setup-clojure-mode))
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
