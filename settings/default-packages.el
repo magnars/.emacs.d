@@ -587,6 +587,21 @@
   (hes-mode)
   (put 'font-lock-regexp-grouping-backslash 'face-alias 'font-lock-builtin-face))
 
+;;; Python related packages
+(use-package elpy
+  :ensure t
+  :config
+  (elpy-enable)
+  (setq elpy-rpc-backend "jedi"))
+
+(use-package ein
+  :ensure t)
+
+(use-package py-autopep8
+  :ensure t
+  :config
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
+
 ;; (use-package smex
 ;;   :ensure t
 ;;   :config
@@ -685,7 +700,6 @@
   ;; OPTIONAL, some users need specify extra flags forwarded to compiler
   ;; (setq cppcm-extra-preprocss-flags-from-user '("-I/usr/src/linux/include" "-DNDEBUG"))
 )
-
 
 ;; (require 'sticky-windows)
 

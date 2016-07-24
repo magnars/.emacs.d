@@ -3,6 +3,10 @@
 (setq mac-command-modifier 'meta)
 (setq ns-function-modifier 'hyper)
 
+;; Setup environment variables from the user's shell.
+(require-package 'exec-path-from-shell)
+(exec-path-from-shell-initialize)
+
 ;; Norwegian mac-keyboard alt-keys)
 ;; (define-key key-translation-map (kbd "s-8") (kbd "["))
 ;; (define-key key-translation-map (kbd "s-(") (kbd "{"))
