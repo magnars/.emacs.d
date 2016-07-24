@@ -557,12 +557,17 @@
   :config
   (require 'setup-flycheck))
 
+(use-package yasnippet
+  :ensure t
+  :config
+  (require 'setup-yasnippet))
+
 (use-package flycheck-pos-tip :ensure t)
 (use-package flx :ensure t)
 (use-package f :ensure t)
 (use-package flx-ido :ensure t)
 (use-package dired-details :ensure t)
-(use-package yasnippet :ensure t)
+
 (use-package smartparens :ensure t)
 (use-package ido-vertical-mode :ensure t)
 (use-package ido-at-point :ensure t)
@@ -601,7 +606,7 @@
 ;; (eval-after-load 'grep '(require 'setup-rgrep))
 ;; (eval-after-load 'shell '(require 'setup-shell))
 ;; (require 'setup-hippie)
-;; (require 'setup-yasnippet)
+;; 
 ;; (require 'setup-perspective)
 ;; (require 'setup-ffip)
 ;; (require 'setup-html-mode)
@@ -658,10 +663,35 @@
 ;; (require 'browse-kill-ring)
 ;; (setq browse-kill-ring-quit-action 'save-and-restore)
 
+(use-package framemove
+  :ensure t
+  :config
+  (windmove-default-keybindings)
+  (setq framemove-hook-into-windmove t))
+
+(use-package cpputils-cmake
+  :ensure t
+  :config
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (if (derived-mode-p 'c-mode 'c++-mode)
+                  (cppcm-reload-all))))
+  ;; OPTIONAL, somebody reported that they can use this package with Fortran
+  (add-hook 'c90-mode-hook (lambda () (cppcm-reload-all)))
+  ;; OPTIONAL, avoid typing full path when starting gdb
+  (global-set-key (kbd "C-c C-g")
+                  '(lambda ()(interactive) 
+                     (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer)))))
+  ;; OPTIONAL, some users need specify extra flags forwarded to compiler
+  ;; (setq cppcm-extra-preprocss-flags-from-user '("-I/usr/src/linux/include" "-DNDEBUG"))
+)
+
+
+;; (require 'sticky-windows)
 
 ;; Emacs server
 (use-package server
-  config:
+  :config
   (unless (server-running-p)
     (server-start)))
 

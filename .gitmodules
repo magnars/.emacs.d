@@ -10,9 +10,6 @@
 [submodule "site-lisp/ace-jump-mode"]
         path = site-lisp/ace-jump-mode
         url = https://github.com/winterTTr/ace-jump-mode.git
-[submodule "site-lisp/buster-snippets"]
-        path = site-lisp/buster-snippets
-        url = https://github.com/magnars/buster-snippets.el.git
 [submodule "site-lisp/expand-region"]
         path = site-lisp/expand-region
         url = https://github.com/magnars/expand-region.el.git
@@ -82,9 +79,6 @@
 [submodule "site-lisp/s"]
         path = site-lisp/s
         url = https://github.com/magnars/s.el.git
-[submodule "site-lisp/dash"]
-        path = site-lisp/dash
-        url = https://github.com/magnars/dash.el.git
 [submodule "site-lisp/multifiles"]
         path = site-lisp/multifiles
         url = https://github.com/magnars/multifiles.el.git
@@ -103,12 +97,9 @@
 [submodule "site-lisp/simplezen"]
         path = site-lisp/simplezen
         url = https://github.com/magnars/simplezen.el.git
-[submodule "site-lisp/angular-snippets"]
-        path = site-lisp/angular-snippets
-        url = https://github.com/magnars/angular-snippets.el.git
 [submodule "site-lisp/flycheck"]
         path = site-lisp/flycheck
         url = https://github.com/lunaryorn/flycheck.git
-[submodule "site-lisp/datomic-snippets"]
-        path = site-lisp/datomic-snippets
-        url = https://github.com/magnars/datomic-snippets.git
+[submodule "yasnippet-snippets"]
+	path = yasnippet-snippets
+	url = https://github.com/AndreaCrotti/yasnippet-snippets.git
