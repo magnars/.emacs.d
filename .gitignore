@@ -18,3 +18,5 @@ site-lisp/adventur-mode
 /ensime/
 
 recentf
+/SessionDesktop.el
+/history
