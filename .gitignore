@@ -20,3 +20,6 @@ site-lisp/adventur-mode
 recentf
 /SessionDesktop.el
 /history
+/.emacs.desktop
+/.emacs.desktop.lock
+/local/
