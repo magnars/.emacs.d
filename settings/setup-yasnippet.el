@@ -4,9 +4,9 @@
 (yas-global-mode 1)
 
 ;; Include snippets for stuff
-(use-package buster-snippets)
-(use-package angular-snippets)
-(use-package datomic-snippets)
+;; (use-package buster-snippets)
+;; (use-package angular-snippets)
+;; (use-package datomic-snippets)
 
 ;; Jump to end of snippet definition
 (define-key yas-keymap (kbd "<return>") 'yas-exit-all-snippets)
