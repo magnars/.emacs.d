@@ -1,3 +1,5 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Emacs Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (use-package saveplace
   :ensure t
   :config 
@@ -10,50 +12,43 @@
   :init (setf abbrev-file-name (locate-user-emacs-file "local/abbrev_defs"))
   :config (setf dabbrev-case-fold-search nil))
 
-(use-package impatient-mode
-  :defer t
-  :ensure t
-  :config
-  (defun imp-markdown-filter (in)
-    (let ((out (current-buffer)))
-      (with-current-buffer in
-        (markdown out))))
-  (push (cons 'markdown-mode #'imp-markdown-filter)
-        imp-default-user-filters))
-
-;; (use-package lua-mode
-;;   :defer t
-;;   :ensure t
-;;   :config
-;;   (require 'lua-extras)
-;;   (setf lua-default-application "luajit"
-;;         lua-always-show nil)
-;;   (define-key lua-mode-map (kbd "C-x C-e") #'lua-send-current-line)
-;;   (define-key lua-mode-map (kbd "C-M-x")   #'lua-send-defun)
-;;   (define-key lua-mode-map (kbd "C-c C-k") #'skeeto/lua-send-buffer)
-;;   (define-key lua-mode-map (kbd "C-c C-z") #'skeeto/lua-toggle-process-buffer)
-;;   (add-function :after (symbol-function 'lua-start-process)
-;;                 #'skeeto/lua-add-filter))
-
 ;; (use-package memoize
 ;;   :defer t
 ;;   :ensure t)
 
-(use-package dired
-  :defer t
-  :config
-  (progn
-    (add-hook 'dired-mode-hook #'toggle-truncate-lines)
-    (setf dired-listing-switches "-alhG"
-          dired-guess-shell-alist-user
-          '(("\\.pdf\\'" "evince")
-            ("\\(\\.ods\\|\\.xlsx?\\|\\.docx?\\|\\.csv\\)\\'" "libreoffice")
-            ("\\(\\.png\\|\\.jpe?g\\)\\'" "qiv")
-            ("\\.gif\\'" "animate")))))
+;; (use-package dired
+;;   :defer t
+;;   :config
+;;   (progn
+;;     (add-hook 'dired-mode-hook #'toggle-truncate-lines)
+;;     (setf dired-listing-switches "-alhG"
+;;           dired-guess-shell-alist-user
+;;           '(("\\.pdf\\'" "evince")
+;;             ("\\(\\.ods\\|\\.xlsx?\\|\\.docx?\\|\\.csv\\)\\'" "libreoffice")
+;;             ("\\(\\.png\\|\\.jpe?g\\)\\'" "qiv")
+;;             ("\\.gif\\'" "animate")))))
 
 (use-package message
   :defer t
   :config (define-key message-mode-map (kbd "C-c C-s") nil)) ; super annoying
+
+;; (use-package tramp
+;;   :defer t
+;;   :config
+;;   (setf tramp-persistency-file-name
+;;         (concat temporary-file-directory "tramp-" (user-login-name))))
+
+(use-package framemove
+  :ensure t
+  :config
+  (windmove-default-keybindings)
+  (setq framemove-hook-into-windmove t))
+
+;; (use-package smex
+;;   :ensure t
+;;   :config
+;;   (smex-initialize))
+
 
 ;; (use-package notmuch
 ;;   :ensure t
@@ -90,66 +85,25 @@
 ;;   (require 'feed-setup)
 ;;   (setf bookmark-default-file (locate-user-emacs-file "local/bookmarks")))
 
-(use-package lisp-mode
-  :defer t
-  :config
-  (progn
-    (defun ert-all ()
-      (interactive)
-      (ert t))
-    (defun ielm-repl ()
-      (interactive)
-      (pop-to-buffer (get-buffer-create "*ielm*"))
-      (ielm))
-    (define-key emacs-lisp-mode-map (kbd "C-x r")   #'ert-all)
-    (define-key emacs-lisp-mode-map (kbd "C-c C-z") #'ielm-repl)
-    (define-key emacs-lisp-mode-map (kbd "C-c C-k") #'eval-buffer*)
-    (defalias 'lisp-interaction-mode 'emacs-lisp-mode)
-    (font-lock-add-keywords
-     'emacs-lisp-mode
-     `((,(concat "(\\(\\(?:\\(?:\\sw\\|\\s_\\)+-\\)?"
-                 "def\\(?:\\sw\\|\\s_\\)*\\)\\_>"
-                 "\\s-*'?" "\\(\\(?:\\sw\\|\\s_\\)+\\)?")
-        (1 'font-lock-keyword-face)
-        (2 'font-lock-function-name-face nil t)))
-     :low-priority)))
+;; (use-package time
+;;   :config
+;;   (progn
+;;     (setf display-time-default-load-average nil
+;;           display-time-use-mail-icon t
+;;           display-time-24hr-format t)
+;;     (display-time-mode t)))
 
-(use-package time
-  :config
-  (progn
-    (setf display-time-default-load-average nil
-          display-time-use-mail-icon t
-          display-time-24hr-format t)
-    (display-time-mode t)))
-
-(use-package comint
-  :defer t
-  :config
-  (progn
-    (define-key comint-mode-map (kbd "<down>") #'comint-next-input)
-    (define-key comint-mode-map (kbd "<up>") #'comint-previous-input)
-    (define-key comint-mode-map (kbd "C-n") #'comint-next-input)
-    (define-key comint-mode-map (kbd "C-p") #'comint-previous-input)
-    (define-key comint-mode-map (kbd "C-r") #'comint-history-isearch-backward)
-    (setf comint-prompt-read-only t
-          comint-history-isearch t)))
-
-(use-package tramp
-  :defer t
-  :config
-  (setf tramp-persistency-file-name
-        (concat temporary-file-directory "tramp-" (user-login-name))))
-
-(use-package whitespace-cleanup-mode
-  :ensure t
-  :init
-  (progn
-    (setq-default indent-tabs-mode nil)
-    (global-whitespace-cleanup-mode)))
-
-(use-package diff-mode
-  :defer t
-  :config (add-hook 'diff-mode-hook #'read-only-mode))
+;; (use-package comint
+;;   :defer t
+;;   :config
+;;   (progn
+;;     (define-key comint-mode-map (kbd "<down>") #'comint-next-input)
+;;     (define-key comint-mode-map (kbd "<up>") #'comint-previous-input)
+;;     (define-key comint-mode-map (kbd "C-n") #'comint-next-input)
+;;     (define-key comint-mode-map (kbd "C-p") #'comint-previous-input)
+;;     (define-key comint-mode-map (kbd "C-r") #'comint-history-isearch-backward)
+;;     (setf comint-prompt-read-only t
+;;           comint-history-isearch t)))
 
 ;; (use-package simple
 ;;   :defer t
@@ -169,28 +123,225 @@
     (winner-mode 1)
     (windmove-default-keybindings)))
 
-(use-package calc
-  :defer t
-  :config (setf calc-display-trail nil))
-
-(use-package eshell
-  :bind ([f1] . eshell-as)
-  :init
-  (setf eshell-directory-name (locate-user-emacs-file "local/eshell"))
-  :config
-  (add-hook 'eshell-mode-hook ; Bad, eshell, bad!
-            (lambda ()
-              (define-key eshell-mode-map (kbd "<f1>") #'quit-window))))
-
-(use-package magit
+(use-package visual-regexp
   :ensure t
-  :bind ("C-x g" . magit-status)
-  :init (setf magit-last-seen-setup-instructions "2.1.0")
   :config
-  (setf vc-display-status nil
-        magit-push-always-verify nil)
-  (remove-hook 'git-commit-finish-query-functions
-               'git-commit-check-style-conventions))
+  (define-key global-map (kbd "M-&") 'vr/query-replace)
+  (define-key global-map (kbd "M-/") 'vr/replace))
+
+(use-package guide-key 
+  :ensure t  
+  :config
+  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-h"))
+  (guide-key-mode 1)
+  (setq guide-key/recursive-key-sequence-flag t)
+  (setq guide-key/popup-window-position 'bottom))
+
+(use-package highlight-escape-sequences
+  :ensure t
+  :config
+  (require 'highlight-escape-sequences)
+  (hes-mode)
+  (put 'font-lock-regexp-grouping-backslash 'face-alias 'font-lock-builtin-face))
+
+(use-package swiper
+  :ensure t
+  :defer nil
+  :init (ivy-mode 1)
+  :config
+  (setf ivy-wrap t
+        ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
+  (define-key ivy-minibuffer-map (kbd "C-s") #'ivy-next-line)
+  (define-key ivy-minibuffer-map (kbd "C-r") #'ivy-previous-line)
+  (define-key ivy-minibuffer-map (kbd "C-l")
+    (lambda ()
+      "Be like like Helm."
+      (interactive)
+      (unless (eql (char-before) ?/)
+        (ivy-backward-kill-word))
+      (ivy-backward-delete-char))))
+
+;; (use-package flycheck-pos-tip :ensure t)
+;; (use-package flx :ensure t)
+;; (use-package f :ensure t)
+;; (use-package flx-ido :ensure t)
+;; (use-package dired-details :ensure t)
+
+;; (use-package smartparens :ensure t)
+;; (use-package ido-vertical-mode :ensure t)
+;; (use-package ido-at-point :ensure t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Visual Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; (use-package mustard-theme
+;;   :ensure t)
+;; (use-package suscolors-theme
+;;   :ensure t)
+(use-package idea-darkula-theme
+  :ensure t)
+
+(use-package fill-column-indicator
+  :ensure t
+  :config
+  (setq fci-rule-color "#111122"))
+
+;; (use-package color-theme-sanityinc-tomorrow
+;;   :ensure t
+;;   :init
+;;   (progn
+;;     (load-theme 'sanityinc-tomorrow-night :no-confirm)
+;;     (setf frame-background-mode 'dark)
+;;     (global-hl-line-mode 1)
+;;     (custom-set-faces
+;;      '(cursor               ((t :background "#eebb28")))
+;;      '(diff-added           ((t :foreground "green" :underline nil)))
+;;      '(diff-removed         ((t :foreground "red" :underline nil)))
+;;      '(highlight            ((t :background "black" :underline nil)))
+;;      '(magit-item-highlight ((t :background "black")))
+;;      '(hl-line              ((t :background "gray10"))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Language General ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package whitespace-cleanup-mode
+  :ensure t
+  :init
+  (progn
+    (setq-default indent-tabs-mode nil)
+    (global-whitespace-cleanup-mode)))
+
+(use-package diff-mode
+  :defer t
+  :config (add-hook 'diff-mode-hook #'read-only-mode))
+
+(use-package paren
+  :config (show-paren-mode))
+
+(use-package ggtags
+  :ensure t
+  :defer t
+  :init
+  (progn
+    (add-hook 'c-mode-common-hook
+              (lambda ()
+                (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+                  (ggtags-mode 1))))))
+
+(use-package yasnippet
+  :ensure t
+  :config
+  (require 'setup-yasnippet))
+
+(use-package flycheck
+  :ensure t
+  :config
+  (require 'setup-flycheck))
+
+;; (use-package magit
+;;   :ensure t
+;;   :bind ("C-x g" . magit-status)
+;;   :init (setf magit-last-seen-setup-instructions "2.1.0")
+;;   :config
+;;   (setf vc-display-status nil
+;;         magit-push-always-verify nil)
+;;   (remove-hook 'git-commit-finish-query-functions
+;;                'git-commit-check-style-conventions))
+
+
+;; (use-package compile-bind
+;;   :demand t
+;;   :bind (("C-h g" . compile-bind-set-command)
+;;          ("C-h G" . compile-bind-set-root-file))
+;;   :config
+;;   (progn
+;;     (setf compilation-always-kill t
+;;           compilation-scroll-output 'first-error
+;;           compile-bind-command (format "make -kj%d" (numcores)))
+;;     (compile-bind* (current-global-map)
+;;                    ("C-x c" ""
+;;                     "C-x r" 'run
+;;                     "C-x t" 'test
+;;                     "C-x C" 'clean))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Specific Language ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package cpputils-cmake
+  :ensure t
+  :config
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (if (derived-mode-p 'c-mode 'c++-mode)
+                  (cppcm-reload-all))))
+  ;; OPTIONAL, somebody reported that they can use this package with Fortran
+  (add-hook 'c90-mode-hook (lambda () (cppcm-reload-all)))
+  ;; OPTIONAL, avoid typing full path when starting gdb
+  (global-set-key (kbd "C-c C-g")
+                  '(lambda ()(interactive) 
+                     (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer)))))
+  ;; OPTIONAL, some users need specify extra flags forwarded to compiler
+  ;; (setq cppcm-extra-preprocss-flags-from-user '("-I/usr/src/linux/include" "-DNDEBUG"))
+)
+
+;; (use-package impatient-mode
+;;   :defer t
+;;   :ensure t
+;;   :config
+;;   (defun imp-markdown-filter (in)
+;;     (let ((out (current-buffer)))
+;;       (with-current-buffer in
+;;         (markdown out))))
+;;   (push (cons 'markdown-mode #'imp-markdown-filter)
+;;         imp-default-user-filters))
+
+;; (use-package lua-mode
+;;   :defer t
+;;   :ensure t
+;;   :config
+;;   (require 'lua-extras)
+;;   (setf lua-default-application "luajit"
+;;         lua-always-show nil)
+;;   (define-key lua-mode-map (kbd "C-x C-e") #'lua-send-current-line)
+;;   (define-key lua-mode-map (kbd "C-M-x")   #'lua-send-defun)
+;;   (define-key lua-mode-map (kbd "C-c C-k") #'skeeto/lua-send-buffer)
+;;   (define-key lua-mode-map (kbd "C-c C-z") #'skeeto/lua-toggle-process-buffer)
+;;   (add-function :after (symbol-function 'lua-start-process)
+;;                 #'skeeto/lua-add-filter))
+
+;; (use-package lisp-mode
+;;   :defer t
+;;   :config
+;;   (progn
+;;     (defun ert-all ()
+;;       (interactive)
+;;       (ert t))
+;;     (defun ielm-repl ()
+;;       (interactive)
+;;       (pop-to-buffer (get-buffer-create "*ielm*"))
+;;       (ielm))
+;;     (define-key emacs-lisp-mode-map (kbd "C-x r")   #'ert-all)
+;;     (define-key emacs-lisp-mode-map (kbd "C-c C-z") #'ielm-repl)
+;;     (define-key emacs-lisp-mode-map (kbd "C-c C-k") #'eval-buffer*)
+;;     (defalias 'lisp-interaction-mode 'emacs-lisp-mode)
+;;     (font-lock-add-keywords
+;;      'emacs-lisp-mode
+;;      `((,(concat "(\\(\\(?:\\(?:\\sw\\|\\s_\\)+-\\)?"
+;;                  "def\\(?:\\sw\\|\\s_\\)*\\)\\_>"
+;;                  "\\s-*'?" "\\(\\(?:\\sw\\|\\s_\\)+\\)?")
+;;         (1 'font-lock-keyword-face)
+;;         (2 'font-lock-function-name-face nil t)))
+;;      :low-priority)))
+
+;; (use-package calc
+;;   :defer t
+;;   :config (setf calc-display-trail nil))
+
+;; (use-package eshell
+;;   :bind ([f1] . eshell-as)
+;;   :init
+;;   (setf eshell-directory-name (locate-user-emacs-file "local/eshell"))
+;;   :config
+;;   (add-hook 'eshell-mode-hook ; Bad, eshell, bad!
+;;             (lambda ()
+;;               (define-key eshell-mode-map (kbd "<f1>") #'quit-window))))
 
 (use-package gitconfig-mode
   :ensure t
@@ -212,11 +363,11 @@
 ;;         markdown-command
 ;;         "pandoc -f markdown -t html5 -s --self-contained --smart"))
 
-(use-package octave
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
-  (setf octave-block-offset 4))
+;; (use-package octave
+;;   :defer t
+;;   :config
+;;   (add-to-list 'auto-mode-alist '("\\.m$" . octave-mode))
+;;   (setf octave-block-offset 4))
 
 ;; (use-package simple-httpd
 ;;   :ensure t
@@ -294,118 +445,70 @@
     (add-to-list 'c-default-style '(c-mode . "k&r"))
     (add-to-list 'c-default-style '(c++-mode . "k&r"))))
 
-(use-package nasm-mode
-  :ensure t
-  :defer t
-  :mode ("\\.nasm$" "\\.asm$" "\\.s$")
-  :config
-  (add-hook 'nasm-mode-hook (lambda () (setf indent-tabs-mode t))))
-
-(use-package asm-mode
-  :config
-  (add-hook 'asm-mode-hook (lambda () (setf indent-tabs-mode t
-                                            tab-always-indent t))))
-
-(use-package x86-lookup
-  :ensure t
-  :defer t
-  :bind ("C-h x" . x86-lookup)
-  :functions x86-lookup-browse-pdf-evince
-  :config
-  (let ((pdf-regexp "^64-ia-32-.*-instruction-set-.*\\.pdf$")
-        (pdf-dir "~/doc/"))
-    (setf x86-lookup-browse-pdf-function #'x86-lookup-browse-pdf-evince
-          x86-lookup-pdf (ignore-errors
-                           (car (directory-files pdf-dir t pdf-regexp))))))
-
-(use-package ielm
-  :defer t
-  :config
-  (progn
-    (define-key ielm-map (kbd "C-c C-z") #'quit-window)
-    (defadvice ielm-eval-input (after ielm-paredit activate)
-      "Begin each ielm prompt with a paredit pair."
-      (paredit-open-round))))
-
-(use-package paredit
-  :ensure t
-  :defer t
-  :init
-  (progn
-    (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
-    (add-hook 'lisp-mode-hook #'paredit-mode)
-    (add-hook 'scheme-mode-hook #'paredit-mode)
-    (add-hook 'ielm-mode-hook #'paredit-mode)
-    (add-hook 'clojure-mode-hook #'paredit-mode))
-  :config (define-key paredit-mode-map (kbd "C-j") #'join-line))
-
-(use-package paren
-  :config (show-paren-mode))
-
-(use-package rainbow-delimiters
-  :ensure t
-  :defer t
-  :init
-  (progn
-    (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
-    (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
-    (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
-  :config
-  (progn
-    (set-face-foreground 'rainbow-delimiters-depth-1-face "snow4")
-    (setf rainbow-delimiters-max-face-count 1)
-    (set-face-attribute 'rainbow-delimiters-unmatched-face nil
-                        :foreground 'unspecified
-                        :inherit 'error)
-    (set-face-foreground 'rainbow-delimiters-depth-1-face "snow4")))
-
-(use-package counsel
-  :ensure t)
-
-(use-package flx
-  :ensure t)
-
-(use-package swiper
-  :ensure t
-  :defer nil
-  :init (ivy-mode 1)
-  :config
-  (setf ivy-wrap t
-        ivy-re-builders-alist '((t . ivy--regex-fuzzy)))
-  (define-key ivy-minibuffer-map (kbd "C-s") #'ivy-next-line)
-  (define-key ivy-minibuffer-map (kbd "C-r") #'ivy-previous-line)
-  (define-key ivy-minibuffer-map (kbd "C-l")
-    (lambda ()
-      "Be like like Helm."
-      (interactive)
-      (unless (eql (char-before) ?/)
-        (ivy-backward-kill-word))
-      (ivy-backward-delete-char))))
-
-(use-package ggtags
-  :ensure t
-  :defer t
-  :init
-  (progn
-    (add-hook 'c-mode-common-hook
-              (lambda ()
-                (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
-                  (ggtags-mode 1))))))
-
-;; (use-package color-theme-sanityinc-tomorrow
+;; (use-package nasm-mode
 ;;   :ensure t
+;;   :defer t
+;;   :mode ("\\.nasm$" "\\.asm$" "\\.s$")
+;;   :config
+;;   (add-hook 'nasm-mode-hook (lambda () (setf indent-tabs-mode t))))
+
+;; (use-package asm-mode
+;;   :config
+;;   (add-hook 'asm-mode-hook (lambda () (setf indent-tabs-mode t
+;;                                             tab-always-indent t))))
+
+;; (use-package x86-lookup
+;;   :ensure t
+;;   :defer t
+;;   :bind ("C-h x" . x86-lookup)
+;;   :functions x86-lookup-browse-pdf-evince
+;;   :config
+;;   (let ((pdf-regexp "^64-ia-32-.*-instruction-set-.*\\.pdf$")
+;;         (pdf-dir "~/doc/"))
+;;     (setf x86-lookup-browse-pdf-function #'x86-lookup-browse-pdf-evince
+;;           x86-lookup-pdf (ignore-errors
+;;                            (car (directory-files pdf-dir t pdf-regexp))))))
+
+;; (use-package ielm
+;;   :defer t
+;;   :config
+;;   (progn
+;;     (define-key ielm-map (kbd "C-c C-z") #'quit-window)
+;;     (defadvice ielm-eval-input (after ielm-paredit activate)
+;;       "Begin each ielm prompt with a paredit pair."
+;;       (paredit-open-round))))
+
+;; (use-package paredit
+;;   :ensure t
+;;   :defer t
 ;;   :init
 ;;   (progn
-;;     (load-theme 'sanityinc-tomorrow-night :no-confirm)
-;;     (setf frame-background-mode 'dark)
-;;     (global-hl-line-mode 1)
-;;     (custom-set-faces
-;;      '(cursor               ((t :background "#eebb28")))
-;;      '(diff-added           ((t :foreground "green" :underline nil)))
-;;      '(diff-removed         ((t :foreground "red" :underline nil)))
-;;      '(highlight            ((t :background "black" :underline nil)))
-;;      '(magit-item-highlight ((t :background "black")))
-;;      '(hl-line              ((t :background "gray10"))))))
+;;     (add-hook 'emacs-lisp-mode-hook #'paredit-mode)
+;;     (add-hook 'lisp-mode-hook #'paredit-mode)
+;;     (add-hook 'scheme-mode-hook #'paredit-mode)
+;;     (add-hook 'ielm-mode-hook #'paredit-mode)
+;;     (add-hook 'clojure-mode-hook #'paredit-mode))
+;;   :config (define-key paredit-mode-map (kbd "C-j") #'join-line))
+
+;; (use-package rainbow-delimiters
+;;   :ensure t
+;;   :defer t
+;;   :init
+;;   (progn
+;;     (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+;;     (add-hook 'clojure-mode-hook #'rainbow-delimiters-mode)
+;;     (add-hook 'ielm-mode-hook #'rainbow-delimiters-mode))
+;;   :config
+;;   (progn
+;;     (set-face-foreground 'rainbow-delimiters-depth-1-face "snow4")
+;;     (setf rainbow-delimiters-max-face-count 1)
+;;     (set-face-attribute 'rainbow-delimiters-unmatched-face nil
+;;                         :foreground 'unspecified
+;;                         :inherit 'error)
+;;     (set-face-foreground 'rainbow-delimiters-depth-1-face "snow4")))
+
+;; (use-package counsel
+;;   :ensure t)
 
 ;; (use-package websocket
 ;;   :ensure t
@@ -419,64 +522,49 @@
 ;;   (ignore-errors
 ;;     (setf javadoc-lookup-cache-dir (locate-user-emacs-file "local/javadoc"))))
 
-(use-package gnuplot-mode
-  :ensure t
-  :defer t)
+;; (use-package gnuplot-mode
+;;   :ensure t
+;;   :defer t)
 
-(use-package browse-url
-  :defer t
-  :init (setf url-cache-directory (locate-user-emacs-file "local/url"))
-  :config
-  (when (executable-find "firefox")
-    (setf browse-url-browser-function #'browse-url-firefox
-          browse-url-generic-program "xombrero"
-          browse-url-generic-args '("-n"))))
+;; (use-package browse-url
+;;   :defer t
+;;   :init (setf url-cache-directory (locate-user-emacs-file "local/url"))
+;;   :config
+;;   (when (executable-find "firefox")
+;;     (setf browse-url-browser-function #'browse-url-firefox
+;;           browse-url-generic-program "xombrero"
+;;           browse-url-generic-args '("-n"))))
 
-(use-package multiple-cursors
-  :ensure t
-  :bind (("C-c e" . mc/edit-lines)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C->" . mc/mark-next-like-this))
-  :init (setf mc/list-file (locate-user-emacs-file "local/mc-lists.el")))
+;; (use-package multiple-cursors
+;;   :ensure t
+;;   :bind (("C-c e" . mc/edit-lines)
+;;          ("C-<" . mc/mark-previous-like-this)
+;;          ("C->" . mc/mark-next-like-this))
+;;   :init (setf mc/list-file (locate-user-emacs-file "local/mc-lists.el")))
 
-(use-package graphviz-dot-mode
-  :ensure t
-  :defer t
-  :config
-  (setf graphviz-dot-indent-width 2
-        graphviz-dot-auto-indent-on-semi nil))
+;; (use-package graphviz-dot-mode
+;;   :ensure t
+;;   :defer t
+;;   :config
+;;   (setf graphviz-dot-indent-width 2
+;;         graphviz-dot-auto-indent-on-semi nil))
 
-(use-package uuid-simple
-  :demand t
-  :bind ("C-x !" . uuid-insert)
-  :config (random (make-uuid)))
+;; (use-package uuid-simple
+;;   :demand t
+;;   :bind ("C-x !" . uuid-insert)
+;;   :config (random (make-uuid)))
 
-(use-package compile-bind
-  :demand t
-  :bind (("C-h g" . compile-bind-set-command)
-         ("C-h G" . compile-bind-set-root-file))
-  :config
-  (progn
-    (setf compilation-always-kill t
-          compilation-scroll-output 'first-error
-          compile-bind-command (format "make -kj%d" (numcores)))
-    (compile-bind* (current-global-map)
-                   ("C-x c" ""
-                    "C-x r" 'run
-                    "C-x t" 'test
-                    "C-x C" 'clean))))
+;; (use-package batch-mode
+;;   :defer t)
 
-(use-package batch-mode
-  :defer t)
-
-(use-package yaml-mode
-  :ensure t
-  :defer t
-  :config
-  (add-hook 'yaml-mode-hook
-            (lambda ()
-              (setq-local paragraph-separate ".*>-$\\|[   ]*$")
-              (setq-local paragraph-start paragraph-separate))))
+;; (use-package yaml-mode
+;;   :ensure t
+;;   :defer t
+;;   :config
+;;   (add-hook 'yaml-mode-hook
+;;             (lambda ()
+;;               (setq-local paragraph-separate ".*>-$\\|[   ]*$")
+;;               (setq-local paragraph-start paragraph-separate))))
 
 ;; (use-package jekyll
 ;;   :demand t
@@ -493,101 +581,51 @@
 ;;       (defservlet robots.txt text/plain ()
 ;;         (insert "User-agent: *\nDisallow: /\n")))))
 
-(use-package help-mode
-  :defer t
-  :config
-  (define-key help-mode-map (kbd "f") #'push-first-button))
+;; (use-package help-mode
+;;   :defer t
+;;   :config
+;;   (define-key help-mode-map (kbd "f") #'push-first-button))
 
-(use-package vimrc-mode
-  :ensure t
-  :defer t)
+;; (use-package vimrc-mode
+;;   :ensure t
+;;   :defer t)
 
-(use-package json-mode
-  :ensure t
-  :defer t
-  :config
-  (progn
-    (setf json-reformat:pretty-string? t
-          json-reformat:indent-width 2)
-    (define-key json-mode-map (kbd "M-q")
-      (lambda ()
-        (interactive)
-        (if (region-active-p)
-            (call-interactively #'json-reformat-region)
-          (json-reformat-region (point-min) (point-max)))))))
+;; (use-package json-mode
+;;   :ensure t
+;;   :defer t
+;;   :config
+;;   (progn
+;;     (setf json-reformat:pretty-string? t
+;;           json-reformat:indent-width 2)
+;;     (define-key json-mode-map (kbd "M-q")
+;;       (lambda ()
+;;         (interactive)
+;;         (if (region-active-p)
+;;             (call-interactively #'json-reformat-region)
+;;           (json-reformat-region (point-min) (point-max)))))))
 
-(use-package gamegrid
-  :defer t
-  :init
-  (setf gamegrid-user-score-file-directory (locate-user-emacs-file "games")))
+;; (use-package gamegrid
+;;   :defer t
+;;   :init
+;;   (setf gamegrid-user-score-file-directory (locate-user-emacs-file "games")))
 
-(use-package apt-sources-mode
-  :defer t
-  :mode "sources.list$")
+;; (use-package apt-sources-mode
+;;   :defer t
+;;   :mode "sources.list$")
 
-(use-package pov-mode
-  :defer t
-  :ensure t)
-
-(use-package pov-mode
-  :defer t
-  :init
-  (autoload 'irfc-mode "irfc" nil t)
-  (autoload 'irfc-visit "irfc" nil t)
-  (setf irfc-directory (locate-user-emacs-file "local/rfc")
-        irfc-assoc-mode t)
-  (mkdir irfc-directory t))
+;; (use-package pov-mode
+;;   :defer t
+;;   :init
+;;   (autoload 'irfc-mode "irfc" nil t)
+;;   (autoload 'irfc-visit "irfc" nil t)
+;;   (setf irfc-directory (locate-user-emacs-file "local/rfc")
+;;         irfc-assoc-mode t)
+;;   (mkdir irfc-directory t))
 
 ;; (use-package ospl-mode
 ;;   (autoload 'ospl-mode "ospl-mode"))
 
-(use-package visual-regexp
-  :ensure t
-  :config
-  (define-key global-map (kbd "M-&") 'vr/query-replace)
-  (define-key global-map (kbd "M-/") 'vr/replace))
-
-(use-package fill-column-indicator
-  :ensure t
-  :config
-  (setq fci-rule-color "#111122"))
-
-(use-package flycheck
-  :ensure t
-  :config
-  (require 'setup-flycheck))
-
-(use-package yasnippet
-  :ensure t
-  :config
-  (require 'setup-yasnippet))
-
-(use-package flycheck-pos-tip :ensure t)
-(use-package flx :ensure t)
-(use-package f :ensure t)
-(use-package flx-ido :ensure t)
-(use-package dired-details :ensure t)
-
-(use-package smartparens :ensure t)
-(use-package ido-vertical-mode :ensure t)
-(use-package ido-at-point :ensure t)
-
-(use-package guide-key 
-  :ensure t  
-  :config
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-h"))
-  (guide-key-mode 1)
-  (setq guide-key/recursive-key-sequence-flag t)
-  (setq guide-key/popup-window-position 'bottom))
-
-(use-package highlight-escape-sequences
-  :ensure t
-  :config
-  (require 'highlight-escape-sequences)
-  (hes-mode)
-  (put 'font-lock-regexp-grouping-backslash 'face-alias 'font-lock-builtin-face))
-
-;;; Python related packages
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Python related ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package elpy
   :ensure t
   :config
@@ -602,17 +640,7 @@
   :config
   (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
 
-;; (use-package smex
-;;   :ensure t
-;;   :config
-;;   (smex-initialize))
-
-;; (use-package mustard-theme
-;;   :ensure t)
-;; (use-package suscolors-theme
-;;   :ensure t)
-(use-package idea-darkula-theme
-  :ensure t)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Misc ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (eval-after-load 'ido '(require 'setup-ido))
 ;; (eval-after-load 'org '(require 'setup-org))
@@ -674,32 +702,9 @@
 ;; (require 'change-inner)
 ;; (require 'multifiles)
 
-;; Browse kill ring
-;; (require 'browse-kill-ring)
+;; Browse kill ring ;; does not exist
+;; (use-package 'browse-kill-ring :ensure t)
 ;; (setq browse-kill-ring-quit-action 'save-and-restore)
-
-(use-package framemove
-  :ensure t
-  :config
-  (windmove-default-keybindings)
-  (setq framemove-hook-into-windmove t))
-
-(use-package cpputils-cmake
-  :ensure t
-  :config
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (if (derived-mode-p 'c-mode 'c++-mode)
-                  (cppcm-reload-all))))
-  ;; OPTIONAL, somebody reported that they can use this package with Fortran
-  (add-hook 'c90-mode-hook (lambda () (cppcm-reload-all)))
-  ;; OPTIONAL, avoid typing full path when starting gdb
-  (global-set-key (kbd "C-c C-g")
-                  '(lambda ()(interactive) 
-                     (gud-gdb (concat "gdb --fullname " (cppcm-get-exe-path-current-buffer)))))
-  ;; OPTIONAL, some users need specify extra flags forwarded to compiler
-  ;; (setq cppcm-extra-preprocss-flags-from-user '("-I/usr/src/linux/include" "-DNDEBUG"))
-)
 
 ;; (require 'sticky-windows)
 
