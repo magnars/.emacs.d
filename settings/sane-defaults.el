@@ -140,4 +140,7 @@
 
 (add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
 
+;; preseve window layout
+(desktop-save-mode 1)
+
 (provide 'sane-defaults)
