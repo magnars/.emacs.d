@@ -11,6 +11,7 @@
 (setq package-pinned-packages '())
 
 (package-initialize)
+(setq package-enable-at-startup nil)
 
 (unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
   (package-refresh-contents))
