@@ -44,7 +44,7 @@
 ;; Set up appearance early
 (require 'appearance)
 
-;; ;; Lets start with a smattering of sanity
+;; Lets start with a smattering of sanity
 (require 'sane-defaults)
 
 ;; Don't use expand-region fast keys
