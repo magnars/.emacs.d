@@ -13,6 +13,3 @@
 
 ;; Are we on a mac?
 (setq is-mac (equal system-type 'darwin))
-
-;; preseve window layout
-(desktop-save-mode 1)
