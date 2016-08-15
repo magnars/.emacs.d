@@ -1,3 +1,5 @@
+(require 'setup-python)
+
 (pyvenv-activate "~/project/venv/")
 (elpy-use-ipython)
 

@@ -60,9 +60,6 @@
 (savehist-mode 1)
 (setq history-length 1000)
 
-;; Undo/redo window configuration with C-c <left>/<right>
-(winner-mode 1)
-
 ;; Never insert tabs
 (set-default 'indent-tabs-mode nil)
 
@@ -97,13 +94,6 @@
 
 ;; Sentences do not need double spaces to end. Period.
 (set-default 'sentence-end-double-space nil)
-
-;; 80 chars is a good width.
-(set-default 'fill-column 80)
-
-;; Add parts of each file's directory to the buffer name if not unique
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
 
 ;; A saner ediff
 (setq ediff-diff-options "-w")
@@ -141,6 +131,6 @@
 (add-to-list 'find-file-not-found-functions 'my-create-non-existent-directory)
 
 ;; preseve window layout
-(desktop-save-mode 1)
+(desktop-save-mode 0)
 
 (provide 'sane-defaults)

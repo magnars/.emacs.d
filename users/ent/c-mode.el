@@ -12,3 +12,5 @@
   ;;(setq tab-width 4)
   ;;(setq indent-tabs-mode t)  ; use spaces only if nil
   (setq indent-tabs-mode nil))
+
+(add-hook 'c-mode-common-hook 'fci-mode)
