@@ -22,12 +22,6 @@
   (package-install 'use-package))
 (require 'use-package)
 
-;; (defun packages-install (packages)
-;;   (--each packages
-;;     (when (not (package-installed-p it))
-;;       (package-install it)))
-;;   (delete-other-windows))
-
 ;;; On-demand installation of packages
 
 (defun require-package (package &optional min-version no-refresh)
