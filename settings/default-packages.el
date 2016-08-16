@@ -100,17 +100,22 @@
   :init (ivy-mode 1)
   :bind (("C-c C-r" . ivy-resume)))
 
-(use-package swiper
-  :ensure t
-  :bind (("C-s" . swiper)))
+;; (use-package swiper
+;;   :ensure t
+;;   :bind (("C-s" . swiper)))
 
-(use-package counsel
-  :ensure t)
+;; (use-package counsel
+;;  :ensure t)
 
 (use-package smartparens
   :ensure t
   :config
   (require 'smartparens-config))
+
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-global-mode))
   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Visual Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
