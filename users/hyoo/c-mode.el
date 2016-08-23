@@ -1,3 +1,6 @@
+;;; desc
+
+
 (defun my-c-mode-common-hook ()
   ;; my customizations for all of c-mode, c++-mode, objc-mode, java-mode
   (c-set-offset 'substatement-open 0) ;; if (cond) '\n' {
@@ -12,21 +15,53 @@
   ;;(setq indent-tabs-mode t)  ; use spaces only if nil
   (setq indent-tabs-mode nil))
 
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-
-(use-package cpputils-cmake :ensure)
-;; (setq cppcm-build-dirname "/home/hyoo/build")
 (use-package flycheck-pos-tip :ensure t)
 (global-flycheck-mode)
 
 
-(add-hook 'c-mode-common-hook
-          (lambda ()
-            (if (derived-mode-p 'c-mode 'c++-mode)
-                (cppcm-reload-all)
-              )))
+(use-package irony
+  :ensure t)
+
+(use-package company-irony
+  :ensure t)
+
+(use-package company-irony-c-headers
+  :ensure t)
+
+(use-package flycheck-irony
+  :ensure t)
+
+
+;; (eval-after-load 'company
+;;  '(add-to-list 'company-backends 'company-irony))
+
+;; Load with `irony-mode` as a grouped backend
+(eval-after-load 'company
+  '(add-to-list
+    'company-backends '(company-irony-c-headers company-irony)))
+
+(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
+(eval-after-load 'flycheck
+ '(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+
+
+;; (use-package cpputils-cmake :ensure)
+;; (setq cppcm-build-dirname "/home/hyoo/build")
+
+
+;; (add-hook 'c-mode-common-hook
+;;           (lambda ()
+;;             (if (derived-mode-p 'c-mode 'c++-mode)
+;;                 (cppcm-reload-all)
+;;               )))
+
+;; ac-clang-flags=(-I/home/hyoo/repo/cpp/lib/jv/jvx/ -I/home/hyoo/repo/cpp/lib -I/home/hyoo/repo/cpp/td/equitiesCommon/src -I/home/hyoo/repo/cpp/td/trading/src -I/home/hyoo/repo/cpp/td/jvcommon -I/research/master/jv/lib/tbb/tbb43_20150611oss/include -I/research/master/jv/lib/gtest/1.7.0/include -I/research/master/jv/lib/gmock/1.7.0/include -I/research/master/jv/lib/zlib/1.2.8/include -I/research/master/jv/lib/hdf5/1.8.15-patch1/include -I/research/master/jv/lib/szip/2.1/include -I/research/master/jv/lib/amd-libm/3.1-lin64/include -I/research/master/jv/lib/acml/6.1.0.31/gfortran64/include -I/research/master/jv/lib/arma/5.400.2-acml/include -I/research/master/jv/lib/sqlite/3.08.11.01/include -I/research/master/jv/lib/boost/1_59_0/include -I/research/master/jv/lib/protobuf/2.6.1/include -I/research/master/jv/lib/gsl/2_1/include -I/research/master/jv/lib/curl/7.49.1/include -I/research/master/jv/lib/thrift/0.9.3/include -I/research/master/jv/lib/nlopt/2.4.2/include -I/home/hyoo/jv_delivery/debug/include -DBOOST_DATE_TIME_POSIX_TIME_STD_CONFIG -DBOOST_DYN_LINK -DBUILD_TYPE_STR=\Debug\ -DHDF5CPP_USEDLL -DHDF5USE_HLCPPDLL -D_HDF5USEDLL_ -D_HDF5USEHLDLL_ -D_USEACML -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS)
+;; company-clang-arguments=(-I/home/hyoo/repo/cpp/lib/jv/jvx/ -I/home/hyoo/repo/cpp/lib -I/home/hyoo/repo/cpp/td/equitiesCommon/src -I/home/hyoo/repo/cpp/td/trading/src -I/home/hyoo/repo/cpp/td/jvcommon -I/research/master/jv/lib/tbb/tbb43_20150611oss/include -I/research/master/jv/lib/gtest/1.7.0/include -I/research/master/jv/lib/gmock/1.7.0/include -I/research/master/jv/lib/zlib/1.2.8/include -I/research/master/jv/lib/hdf5/1.8.15-patch1/include -I/research/master/jv/lib/szip/2.1/include -I/research/master/jv/lib/amd-libm/3.1-lin64/include -I/research/master/jv/lib/acml/6.1.0.31/gfortran64/include -I/research/master/jv/lib/arma/5.400.2-acml/include -I/research/master/jv/lib/sqlite/3.08.11.01/include -I/research/master/jv/lib/boost/1_59_0/include -I/research/master/jv/lib/protobuf/2.6.1/include -I/research/master/jv/lib/gsl/2_1/include -I/research/master/jv/lib/curl/7.49.1/include -I/research/master/jv/lib/thrift/0.9.3/include -I/research/master/jv/lib/nlopt/2.4.2/include -I/home/hyoo/jv_delivery/debug/include -DBOOST_DATE_TIME_POSIX_TIME_STD_CONFIG -DBOOST_DYN_LINK -DBUILD_TYPE_STR=\Debug\ -DHDF5CPP_USEDLL -DHDF5USE_HLCPPDLL -D_HDF5USEDLL_ -D_HDF5USEHLDLL_ -D_USEACML -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS)
+;; flycheck-clang-include-path=(/home/hyoo/repo/cpp/lib/jv/jvx/ /home/hyoo/repo/cpp/lib /home/hyoo/repo/cpp/td/equitiesCommon/src /home/hyoo/repo/cpp/td/trading/src /home/hyoo/repo/cpp/td/jvcommon /research/master/jv/lib/tbb/tbb43_20150611oss/include /research/master/jv/lib/gtest/1.7.0/include /research/master/jv/lib/gmock/1.7.0/include /research/master/jv/lib/zlib/1.2.8/include /research/master/jv/lib/hdf5/1.8.15-patch1/include /research/master/jv/lib/szip/2.1/include /research/master/jv/lib/amd-libm/3.1-lin64/include /research/master/jv/lib/acml/6.1.0.31/gfortran64/include /research/master/jv/lib/arma/5.400.2-acml/include /research/master/jv/lib/sqlite/3.08.11.01/include /research/master/jv/lib/boost/1_59_0/include /research/master/jv/lib/protobuf/2.6.1/include /research/master/jv/lib/gsl/2_1/include /research/master/jv/lib/curl/7.49.1/include /research/master/jv/lib/thrift/0.9.3/include /research/master/jv/lib/nlopt/2.4.2/include /home/hyoo/jv_delivery/debug/include)
+;; flycheck-clang-definitions=(BOOST_DATE_TIME_POSIX_TIME_STD_CONFIG BOOST_DYN_LINK BUILD_TYPE_STR=\Debug\ HDF5CPP_USEDLL HDF5USE_HLCPPDLL _HDF5USEDLL_ _HDF5USEHLDLL_ _USEACML __STDC_CONSTANT_MACROS __STDC_LIMIT_MACROS)
+;; company-c-headers-path-system=(/home/hyoo/repo/cpp/lib/jv/jvx/ /home/hyoo/repo/cpp/lib /home/hyoo/repo/cpp/td/equitiesCommon/src /home/hyoo/repo/cpp/td/trading/src /home/hyoo/repo/cpp/td/jvcommon /research/master/jv/lib/tbb/tbb43_20150611oss/include /research/master/jv/lib/gtest/1.7.0/include /research/master/jv/lib/gmock/1.7.0/include /research/master/jv/lib/zlib/1.2.8/include /research/master/jv/lib/hdf5/1.8.15-patch1/include /research/master/jv/lib/szip/2.1/include /research/master/jv/lib/amd-libm/3.1-lin64/include /research/master/jv/lib/acml/6.1.0.31/gfortran64/include /research/master/jv/lib/arma/5.400.2-acml/include /research/master/jv/lib/sqlite/3.08.11.01/include /research/master/jv/lib/boost/1_59_0/include /research/master/jv/lib/protobuf/2.6.1/include /research/master/jv/lib/gsl/2_1/include /research/master/jv/lib/curl/7.49.1/include /research/master/jv/lib/thrift/0.9.3/include /research/master/jv/lib/nlopt/2.4.2/include /home/hyoo/jv_delivery/debug/include)
 
 ;; (add-hook 'c-mode-common-hook
 ;;           (lambda ()

@@ -1,3 +1,6 @@
+(use-package jedi
+  :ensure t)
+
 (use-package elpy
   :ensure t
   :config
@@ -5,7 +8,9 @@
   (setq elpy-rpc-backend "jedi"))
 
 (use-package ein
-  :ensure t)
+  :ensure t
+  :config
+  (add-hook 'ein:connect-mode-hook 'ein:jedi-setup))
 
 (use-package py-autopep8
   :ensure t

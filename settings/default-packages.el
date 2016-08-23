@@ -41,12 +41,6 @@
   (windmove-default-keybindings)
   (setq framemove-hook-into-windmove t))
 
-;; FIXME : test smex
-;; (use-package smex
-;;   :ensure t
-;;   :config
-;;   (smex-initialize))
-
 ;; FIXME : interesting package. Try this : Comint mode is a package that defines a general command-interpreter-in-a-buffer.
 ;; (use-package comint
 ;;   :defer t
@@ -82,7 +76,7 @@
 (use-package guide-key 
   :ensure t  
   :config
-  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-h"))
+  (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-h" "C-c p"))
   (guide-key-mode 1)
   (setq guide-key/recursive-key-sequence-flag t)
   (setq guide-key/popup-window-position 'bottom))
@@ -107,6 +101,13 @@
 ;; (use-package counsel
 ;;  :ensure t)
 
+;; smex should be later than ivy
+(use-package smex
+  :ensure t
+  :config
+  (smex-initialize)
+  :bind (("M-x" . smex) ("C-c C-c M-x" . execute-extended-command)))
+
 (use-package smartparens
   :ensure t
   :config
@@ -115,7 +116,11 @@
 (use-package projectile
   :ensure t
   :config
-  (projectile-global-mode))
+  (projectile-global-mode)
+  (setq projectile-completion-system 'ivy))
+
+;; (use-package counsel-projectile
+;;  :ensure t)
   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Visual Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
