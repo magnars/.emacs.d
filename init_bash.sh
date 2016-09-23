@@ -1,1 +1,1 @@
-. ~/.bash_profile
+if [ -e /home/hojinyoo/.bashrc ]; then . /home/hojinyoo/.bashrc; fi
