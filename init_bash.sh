@@ -1,1 +1,1 @@
-if [ -e /home/hojinyoo/.bashrc ]; then . /home/hojinyoo/.bashrc; fi
+if [ -e ~/.bashrc ]; then . ~/.bashrc; fi

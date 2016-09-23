@@ -121,6 +121,9 @@
 
 ;; (use-package counsel-projectile
 ;;  :ensure t)
+
+(use-package magit
+  :ensure t)
   
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Visual Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

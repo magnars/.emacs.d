@@ -3,6 +3,3 @@
 
 (use-package lua-mode
   :ensure t)
-
-(use-package magit
-  :ensure t)
