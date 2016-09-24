@@ -5,7 +5,7 @@
             (setq indent-tabs-mode nil)
             (setq tab-width 2)
             (setq python-indent 2)
-            (setq py-autopep8-options '("--indent-size=2 --max-line-length=120"))
+            (setq py-autopep8-options '("--indent-size=2" "--max-line-length=120"))
             ;; (local-set-key (kbd "C-c C-d") 'python-restart--shell-send-region-or-buffer)
             ;; (defun python-restart--shell-send-region-or-buffer (&optional arg)
             ;;   "Restart the python shell, and send the active region or the buffer to it."
@@ -17,7 +17,12 @@
 
 (setenv "PYTHONPATH" "/home/hyoo/repo/scripts/_modules/python:/apps/jv/lib/spark/2.0.0-bin-hadoop2.7/python:/apps/jv/lib/spark/2.0.0-bin-hadoop2.7/python/lib/py4j-0.10.1-src.zip")
 ;; (pyvenv-activate "/home/hyoo/project/python/")
+
+(elpy-enable)
+(setq elpy-rpc-backend "jedi")
 (elpy-use-ipython)
+(add-hook 'ein:connect-mode-hook 'ein:jedi-setup)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
 ;; use flycheck not flymake with elpy
 (when (require 'flycheck nil t)

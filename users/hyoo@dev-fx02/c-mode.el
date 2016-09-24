@@ -18,7 +18,6 @@
 (use-package flycheck-pos-tip :ensure t)
 (global-flycheck-mode)
 
-
 (use-package irony
   :ensure t)
 

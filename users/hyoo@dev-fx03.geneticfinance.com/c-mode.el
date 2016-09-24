@@ -63,16 +63,16 @@
 ;; flycheck-clang-definitions=(BOOST_DATE_TIME_POSIX_TIME_STD_CONFIG BOOST_DYN_LINK BUILD_TYPE_STR=\Debug\ HDF5CPP_USEDLL HDF5USE_HLCPPDLL _HDF5USEDLL_ _HDF5USEHLDLL_ _USEACML __STDC_CONSTANT_MACROS __STDC_LIMIT_MACROS)
 ;; company-c-headers-path-system=(/home/hyoo/repo/cpp/lib/jv/jvx/ /home/hyoo/repo/cpp/lib /home/hyoo/repo/cpp/td/equitiesCommon/src /home/hyoo/repo/cpp/td/trading/src /home/hyoo/repo/cpp/td/jvcommon /research/master/jv/lib/tbb/tbb43_20150611oss/include /research/master/jv/lib/gtest/1.7.0/include /research/master/jv/lib/gmock/1.7.0/include /research/master/jv/lib/zlib/1.2.8/include /research/master/jv/lib/hdf5/1.8.15-patch1/include /research/master/jv/lib/szip/2.1/include /research/master/jv/lib/amd-libm/3.1-lin64/include /research/master/jv/lib/acml/6.1.0.31/gfortran64/include /research/master/jv/lib/arma/5.400.2-acml/include /research/master/jv/lib/sqlite/3.08.11.01/include /research/master/jv/lib/boost/1_59_0/include /research/master/jv/lib/protobuf/2.6.1/include /research/master/jv/lib/gsl/2_1/include /research/master/jv/lib/curl/7.49.1/include /research/master/jv/lib/thrift/0.9.3/include /research/master/jv/lib/nlopt/2.4.2/include /home/hyoo/jv_delivery/debug/include)
 
-;; (add-hook 'c-mode-common-hook
-;;           (lambda ()
-;;             (setq flycheck-gcc-include-path '("/home/hyoo/repo/cpp/lib" "/home/hyoo/repo/cpp/td/equitiesCommon/src" "/home/hyoo/repo/cpp/td/trading/src"
-;;                                               "/home/hyoo/repo/cpp/td/jvcommon" "/home/hyoo/jv_lib/tbb/tbb43_20150611oss/include" "/home/hyoo/jv_lib/gtest/1.7.0/include" "/home/hyoo/jv_lib/gmock/1.7.0/include" "/home/hyoo/jv_lib/zlib/1.2.8/include"
-;;                                               "/home/hyoo/jv_lib/hdf5/1.8.15-patch1/include" "/home/hyoo/jv_lib/szip/2.1/include"
-;;                                               "/home/hyoo/jv_lib/amd-libm/3.1-lin64/include" "/home/hyoo/jv_lib/acml/6.1.0.31/gfortran64/include"
-;;                                               "/home/hyoo/jv_lib/arma/5.400.2-acml/include" "/home/hyoo/jv_lib/sqlite/3.08.11.01/include" "/home/hyoo/jv_lib/boost/1_59_0/include" "/home/hyoo/jv_lib/protobuf/2.6.1/include" "/home/hyoo/jv_lib/gsl/2_1/include" "/home/hyoo/jv_lib/curl/7.49.1/include" "/home/hyoo/jv_lib/thrift/0.9.3/include"
-;;                                               "/home/hyoo/jv_lib/nlopt/2.4.2/include" "/home/hyoo/jv_delivery/debug/include"
-;;                                               "/home/hyoo/repo/cpp/lib/jv/jv/utils" "/home/hyoo/jv_lib/nlopt/2.4.2/include")
-;; )))
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (setq flycheck-gcc-include-path '("/home/hyoo/repo/cpp/lib" "/home/hyoo/repo/cpp/td/equitiesCommon/src" "/home/hyoo/repo/cpp/td/trading/src"
+                                              "/home/hyoo/repo/cpp/td/jvcommon" "/home/hyoo/jv_lib/tbb/tbb43_20150611oss/include" "/home/hyoo/jv_lib/gtest/1.7.0/include" "/home/hyoo/jv_lib/gmock/1.7.0/include" "/home/hyoo/jv_lib/zlib/1.2.8/include"
+                                              "/home/hyoo/jv_lib/hdf5/1.8.15-patch1/include" "/home/hyoo/jv_lib/szip/2.1/include"
+                                              "/home/hyoo/jv_lib/amd-libm/3.1-lin64/include" "/home/hyoo/jv_lib/acml/6.1.0.31/gfortran64/include"
+                                              "/home/hyoo/jv_lib/arma/5.400.2-acml/include" "/home/hyoo/jv_lib/sqlite/3.08.11.01/include" "/home/hyoo/jv_lib/boost/1_59_0/include" "/home/hyoo/jv_lib/protobuf/2.6.1/include" "/home/hyoo/jv_lib/gsl/2_1/include" "/home/hyoo/jv_lib/curl/7.49.1/include" "/home/hyoo/jv_lib/thrift/0.9.3/include"
+                                              "/home/hyoo/jv_lib/nlopt/2.4.2/include" "/home/hyoo/jv_delivery/debug/include"
+                                              "/home/hyoo/repo/cpp/lib/jv/jv/utils" "/home/hyoo/jv_lib/nlopt/2.4.2/include")
+)))
 
 ;; (add-hook 'c-mode-common-hook
 ;;           (lambda ()
