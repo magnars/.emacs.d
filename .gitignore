@@ -23,3 +23,5 @@ recentf
 /.emacs.desktop
 /.emacs.desktop.lock
 /local/
+/projectile-bookmarks.eld
+/smex-items
