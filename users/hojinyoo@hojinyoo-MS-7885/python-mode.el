@@ -21,6 +21,7 @@
 (elpy-enable)
 (setq elpy-rpc-backend "jedi")
 (elpy-use-ipython)
+(setq python-shell-interpreter-args "--pylab --simple-prompt -i")
 (add-hook 'ein:connect-mode-hook 'ein:jedi-setup)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
