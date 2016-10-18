@@ -3,3 +3,5 @@
 
 (use-package sublimity
   :ensure t)
+
+(require 'setup-org)

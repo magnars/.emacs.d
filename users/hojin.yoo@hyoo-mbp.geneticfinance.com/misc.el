@@ -4,3 +4,5 @@
 
 ;; to set PATH in remote server for TRAMP
 ;; (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
+(require 'setup-org)

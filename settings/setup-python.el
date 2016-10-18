@@ -17,9 +17,9 @@
   :config
   (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save))
 
-(use-package smartrep
-  :ensure t
-  :config
-  (setq ein:use-smartrep t))
+;; (use-package smartrep
+;;   :ensure t
+;;   :config
+;;   (setq ein:use-smartrep t))
 
 (provide 'setup-python)
