@@ -17,10 +17,23 @@
 
 (setq org-log-done t)
 
-(setq org-agenda-files (list "/pi@rp2:~/org/work.org"
-                             "/pi@rp2:~/org/home.org"
-                             "/pi@rp2:~/org/mobileorg.org"
-                             "/pi@rp2:~/org/todo.org"
+(setq org-agenda-files (list "/rp2:~/org/work.org"
+                             "/rp2:~/org/home.org"
+                             "/rp2:~/org/mobileorg.org"
+                             "/rp2:~/org/todo.org"
                              ))
+
+(setq org-todo-keywords
+      '((sequence "TODO" "|" "DONE" "DELEGATED" "CANCELED")))
+
+(global-set-key (kbd "C-c c") 'org-capture)
+
+(setq org-default-notes-file "/rp2:~/org/todo.org")
+
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "/rp2:~/org/todo.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("j" "Journal" entry (file+datetree "/rp2:~/org/home.org")
+         "* %?\nEntered on %U\n  %i\n  %a")))
 
 (provide 'setup-org)
