@@ -124,7 +124,9 @@
 
 (use-package magit
   :ensure t)
-  
+
+(require 'setup-org)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Visual Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; (use-package mustard-theme
