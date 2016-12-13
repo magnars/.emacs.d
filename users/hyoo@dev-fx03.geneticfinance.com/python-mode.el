@@ -58,4 +58,6 @@
 
 (add-hook 'org-mode-hook 'my-ob-ipython-config)
 
+(setq ein:use-auto-complete-superpack t)
+;; (setq ein:use-smartrep t)
 ;; (provide 'python)

@@ -34,6 +34,8 @@
       '(("t" "Todo" entry (file+headline "/rp2:~/org/todo.org" "Tasks")
          "* TODO %?\n  %i\n  %a")
         ("j" "Journal" entry (file+datetree "/rp2:~/org/home.org")
-         "* %?\nEntered on %U\n  %i\n  %a")))
+         "* %?\nEntered on %U\n  %i\n  %a")
+        ("w" "Todo" entry (file+headline "/rp2:~/org/work.org" "Work Tasks")
+         "* TODO %?\n  %i\n  %a")))
 
 (provide 'setup-org)
