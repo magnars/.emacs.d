@@ -123,7 +123,10 @@
 ;;  :ensure t)
 
 (use-package magit
-  :ensure t)
+  :ensure t
+  :config
+  (projectile-global-mode)
+  (setq magit-completing-read-function 'ivy-completing-read))
 
 (require 'setup-org)
 
