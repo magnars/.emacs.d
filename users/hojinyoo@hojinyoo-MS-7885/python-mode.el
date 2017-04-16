@@ -1,26 +1,28 @@
 (require 'setup-python)
 
-(add-hook 'python-mode-hook
-          (lambda ()
-            (setq indent-tabs-mode nil)
-            (setq tab-width 2)
-            (setq python-indent 2)
-            ;; (setq py-autopep8-options '("--indent-size=2" "--max-line-length=120"))
-            ;; (local-set-key (kbd "C-c C-d") 'python-restart--shell-send-region-or-buffer)
-            ;; (defun python-restart--shell-send-region-or-buffer (&optional arg)
-            ;;   "Restart the python shell, and send the active region or the buffer to it."
-            ;;   (interactive "P")
-            ;;   (pyvenv-restart-python)
-            ;;   (elpy-shell-send-region-or-buffer (and )rg))
-            ))
+;; (add-hook 'python-mode-hook
+;;           (lambda ()
+;;             (setq indent-tabs-mode nil)
+;;             ;; (setq tab-width 2)
+;;             ;; (setq python-indent 2)
+;;             ;; (setq py-autopep8-options '("--indent-size=2" "--max-line-length=120"))
+;;             ;; (local-set-key (kbd "C-c C-d") 'python-restart--shell-send-region-or-buffer)
+;;             ;; (defun python-restart--shell-send-region-or-buffer (&optional arg)
+;;             ;;   "Restart the python shell, and send the active region or the buffer to it."
+;;             ;;   (interactive "P")
+;;             ;;   (pyvenv-restart-python)
+;;             ;;   (elpy-shell-send-region-or-buffer (and )rg))
+;;             ))
 
 
 ;; (setenv "PYTHONPATH" "/home/hyoo/projects/notes/modules")
-(pyvenv-activate "/home/hojinyoo/projects/kaggle/venv")
+(pyvenv-activate "/home/hojinyoo/projects/kaggle/venv3")
 
 (elpy-enable)
 (setq elpy-rpc-backend "jedi")
 (elpy-use-ipython)
+
+(setq python-shell-interpreter "ipython" python-shell-interpreter-args "--simple-prompt --pprint")
 ;; (setq python-shell-interpreter-args "--simple-prompt -i")
 ;; (setq python-shell-interpreter-interactive-arg "--simple-prompt -i")
 
@@ -58,3 +60,5 @@
 )
 
 (add-hook 'org-mode-hook 'my-ob-ipython-config)
+
+(setq ein:use-auto-complete-superpack t)

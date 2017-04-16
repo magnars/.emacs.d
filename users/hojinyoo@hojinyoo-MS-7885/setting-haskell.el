@@ -7,6 +7,11 @@
 (use-package hindent
   :ensure t)
 
+(use-package intero
+  :ensure t)
+
+;; (add-hook 'haskell-mode-hook 'intero-mode)
+
 ;; See https://github.com/serras/emacs-haskell-tutorial/blob/master/tutorial.md
 (add-hook 'haskell-mode-hook #'hindent-mode)
 
