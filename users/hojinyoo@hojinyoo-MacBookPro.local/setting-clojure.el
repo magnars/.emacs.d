@@ -5,7 +5,6 @@
     (package-install name)))
 
 ;; packages we want installed
-;; (install-if 'zenburn-theme)
 (install-if 'cider)
 (install-if 'clojure-mode)
 (install-if 'auto-complete)
@@ -17,8 +16,8 @@
 (install-if 'company)
 (install-if 'autopair)
 
-(use-package clojure-cheatsheet
-  :ensure t)
+(use-package clojure-cheatsheet :ensure t)
+
 (require 'ob-clojure)
 (setq org-babel-clojure-backend 'cider)
 
@@ -27,14 +26,6 @@
 ;; (add-hook 'clojure-mode-hook 'turn-on-eldoc-mode)
 (setq nrepl-popup-stacktraces nil)
 (add-to-list 'same-window-buffer-names "<em>nrepl</em>")
-
-;; General Auto-Complete
-;; (require 'auto-complete-config)
-;; ;(setq ac-delay 0.0)
-;; ;(setq ac-quick-help-delay 0.5)
-;; (ac-config-default)
-;; (setq ac-auto-start nil)
-;; (ac-set-trigger-key "TAB")
 
 ;; Disable moving to error buffer
 (setq cider-auto-select-error-buffer nil)
@@ -52,12 +43,6 @@
 ;; Disable entries in the popup menu will also display the namespace that the symbol belongs to.
 (setq ac-cider-show-ns nil)
 
-;; Trigger auto-complete using TAB in CIDER buffers
-; (defun set-auto-complete-as-completion-at-point-function ()
-;   (setq completion-at-point-functions '(auto-complete)))
-; (add-hook 'auto-complete-mode-hook 'set-auto-complete-as-completion-at-point-function)
-; (add-hook 'cider-mode-hook 'set-auto-complete-as-completion-at-point-function)
-
 ;; paredit
 (add-hook 'clojure-mode-hook 'paredit-mode)
 
@@ -65,18 +50,10 @@
 (show-paren-mode 1)
 
 ;; rainbow delimiters
-;;(global-rainbow-delimiters-mode)
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
 
-;; Noctilus Theme
-;(load-theme 'noctilux t)
-
-;; Switch frame using F8
-;; (global-set-key [f8] 'other-frame)
-;; (global-set-key [f7] 'paredit-mode)
-;; (global-set-key [f9] 'cider-jack-in)
-;; (global-set-key [f11] 'speedbar)
-
+;; Pretty print results in repl
+(setq cider-repl-use-pretty-printing t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -136,7 +113,7 @@ point."
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
 
 ;; let cider use the monorepo
-; (setq cider-lein-parameters "monolith with-all :select :default repl :headless :host ::")
+(setq cider-lein-parameters "monolith with-all :select :default repl :headless :host ::")
 ; (setq cider-lein-parameters "monolith with-all :select :default with-profile dev repl :headless :host ::")
 
 
@@ -149,7 +126,7 @@ point."
 ;; retain history
 (setq cider-repl-wrap-history t)
 (setq cider-repl-history-size 10000)
-(setq cider-repl-history-file (concat (getenv "HOME") "/.cider-history"))
+(setq cider-repl-history-file (concat (getenv "HOME") "/.emacs.d/cider-history"))
 
 ;; line length limit indicator
 (require 'fill-column-indicator)
@@ -173,13 +150,7 @@ point."
                    ("/bin/sh")))
                 (tramp-remote-shell "/bin/sh")))
 
-;; ;; cider-diet for fast start-up
-;; (setq cider-diet-path (expand-file-name (concat user-emacs-directory
-;;                                                 "/bin/cider-diet-0.1.0-SNAPSHOT-standalone.jar")))
+(cider-add-to-alist 'cider-jack-in-lein-plugins "cider/cider-nrepl" (upcase "0.14.0"))
 
-;; (defun cider-diet-jack-in ()
-;;   (interactive)
-;;   (let* ((cider-diet-process (start-process "cider-diet-nrepl" "*cider-diet-nrepl*"
-;;                                             "java" "-jar" cider-diet-path "17888")))
-;;     (accept-process-output cider-diet-process)
-;;     (cider-connect "localhost" 17888)))
+(use-package kubernetes
+  :ensure t)
