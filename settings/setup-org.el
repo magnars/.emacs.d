@@ -24,17 +24,29 @@
 ;;                              ))
 
 (setq org-todo-keywords
-      '((sequence "TODO" "|" "DONE" "DELEGATED" "CANCELED")))
+      '((sequence "TODO" "PROG" "|" "DONE" "DELEGATED" "CANCELED")))
 
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (setq org-default-notes-file "~/Dropbox/org/note.org")
 
+(defun org-capture-get-major-mode ()
+  (with-current-buffer (org-capture-get :original-buffer) major-mode))
+
+(defun major-mode-to-lang (mode)
+  (cond ((equal mode 'clojure-mode) "clojure")
+        ((equal mode 'cider-repl-mode) "clojure")
+        ((equal mode 'org-mode) "org")
+        ((equal mode 'python-mode) "python")
+        (t "%^{language}")))
+
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Dropbox/org/todo.org" "Tasks")
+      '(("t" "Todo" entry (file+headline (concat org-directory "/task.org") "Tasks")
          "* TODO %?\n  %i\n  %a")
-        ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
+        ("j" "Journal" entry (file+datetree (concat org-directory "/diary.org"))
          "* %?\nEntered on %U\n  %i\n  %a")
+        ("s" "Code Snippet" entry (file (concat org-directory "/snippets.org"))
+         "* %U %?\t%^G\n#+BEGIN_SRC %(format \"%s\" (major-mode-to-lang (org-capture-get-major-mode)))\n%i\n#+END_SRC" :empty-lines 1)
         ;; ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
         ;;  "* Event: %?\n\n  %i\n\n  From: %a" :empty-lines 1)
         ))
