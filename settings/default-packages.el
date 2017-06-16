@@ -3,7 +3,7 @@
 ;; save palces in files between sessions
 (use-package saveplace
   :ensure t
-  :config 
+  :config
   (setq-default save-place t)           ; FIXME : (save-place-mode 1) for 25.1 or latter
   (setq save-place-file (expand-file-name ".places" user-emacs-directory)) )
 
@@ -73,8 +73,8 @@
   (define-key global-map (kbd "C-c q") 'vr/query-replace)
   (define-key global-map (kbd "C-c r") 'vr/replace))
 
-(use-package guide-key 
-  :ensure t  
+(use-package guide-key
+  :ensure t
   :config
   (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-h" "C-c"))
   (guide-key-mode 1)
@@ -94,12 +94,12 @@
   :init (ivy-mode 1)
   :bind (("C-c C-r" . ivy-resume)))
 
-;; (use-package swiper
-;;   :ensure t
-;;   :bind (("C-s" . swiper)))
+(use-package swiper
+  :ensure t
+  :bind (("C-s" . swiper)))
 
-;; (use-package counsel
-;;  :ensure t)
+(use-package counsel
+ :ensure t)
 
 ;; smex should be later than ivy
 (use-package smex
@@ -111,16 +111,30 @@
 (use-package smartparens
   :ensure t
   :config
-  (require 'smartparens-config))
+  (require 'smartparens-config)
+  (smartparens-global-mode 1))
+
+(use-package paredit
+  :ensure t
+  :config
+  (add-hook 'clojure-mode-hook 'paredit-mode)
+  (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+  (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+  (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+  (show-paren-mode 1))
 
 (use-package projectile
   :ensure t
   :config
   (projectile-global-mode)
-  (setq projectile-completion-system 'ivy))
+  (setq projectile-completion-system 'ivy)
+  (counsel-projectile-on))
 
-;; (use-package counsel-projectile
-;;  :ensure t)
+(use-package counsel-projectile
+ :ensure t)
 
 (use-package magit
   :ensure t
@@ -136,6 +150,7 @@
 ;;   :ensure t)
 ;; (use-package suscolors-theme
 ;;   :ensure t)
+
 (use-package idea-darkula-theme
   :ensure t)
 
@@ -143,6 +158,20 @@
   :ensure t
   :config
   (setq fci-rule-color "#111122"))
+
+;; (display-time-mode nil)
+
+(use-package smart-mode-line
+  :ensure t
+  :config
+  ;; (setq powerline-arrow-shape 'curve)
+  ;; (setq powerline-default-separator-dir '(right . left))
+  ;; (setq sml/theme 'powerline)
+  ;; (setq sml/mode-width 0)
+  ;; (setq sml/name-width 20)
+  ;; (rich-minority-mode 1)
+  ;; (setf rm-blacklist "")
+  (sml/setup))
 
 ;; (use-package color-theme-sanityinc-tomorrow
 ;;   :ensure t

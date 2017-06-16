@@ -9,7 +9,6 @@
 (install-if 'clojure-mode)
 (install-if 'auto-complete)
 (install-if 'ac-cider)
-(install-if 'paredit)
 (install-if 'popup)
 (install-if 'rainbow-delimiters)
 (install-if 'rainbow-mode)
@@ -42,12 +41,6 @@
 
 ;; Disable entries in the popup menu will also display the namespace that the symbol belongs to.
 (setq ac-cider-show-ns nil)
-
-;; paredit
-(add-hook 'clojure-mode-hook 'paredit-mode)
-
-;; Show parenthesis mode
-(show-paren-mode 1)
 
 ;; rainbow delimiters
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
