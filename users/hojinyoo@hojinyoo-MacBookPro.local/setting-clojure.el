@@ -48,6 +48,9 @@
 ;; Pretty print results in repl
 (setq cider-repl-use-pretty-printing t)
 
+;; yasnippet
+(use-package clojure-snippets :ensure t)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; clojure mode hook and helpers
