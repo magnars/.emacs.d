@@ -1,24 +1,18 @@
-(defun install-if (name)
-  (print (concat "considering" (symbol-name name) "\n"))
-  (when (not (package-installed-p name))
-    (print (concat "installing" (symbol-name name) "\n"))
-    (package-install name)))
-
 ;; packages we want installed
-(install-if 'cider)
-(install-if 'clojure-mode)
-(install-if 'auto-complete)
-(install-if 'ac-cider)
-(install-if 'popup)
-(install-if 'rainbow-delimiters)
-(install-if 'rainbow-mode)
-(install-if 'company)
-(install-if 'autopair)
-
-(use-package clojure-cheatsheet :ensure t)
 
 (require 'ob-clojure)
 (setq org-babel-clojure-backend 'cider)
+(use-package cider :ensure t)
+(use-package clojure-mode :ensure t)
+;; (install-if 'auto-complete)
+;; (install-if 'ac-cider)
+(use-package popup :ensure)
+(use-package rainbow-delimiters :ensure t)
+(use-package rainbow-mode :ensure t)
+(use-package company :ensure t)
+(use-package autopair :ensure t)
+
+(use-package clojure-cheatsheet :ensure t)
 
 ;; Cider &amp; nREPL
 (add-hook 'cider-mode-hook #'eldoc-mode)
@@ -29,18 +23,25 @@
 ;; Disable moving to error buffer
 (setq cider-auto-select-error-buffer nil)
 
+;; company mode
+;; (add-hook 'cider-repl-mode-hook #'company-mode)
+;; (add-hook 'cider-mode-hook #'company-mode)
+(add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+(add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
+
+;; Instead of company mode
 ;; ac-cider (Auto-complete for the nREPL)
-(require 'ac-cider)
-(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-cider-setup)
-(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
-(eval-after-load "auto-complete"
-  '(progn
-     (add-to-list 'ac-modes 'cider-mode)
-     (add-to-list 'ac-modes 'cider-repl-mode)))
+;; (require 'ac-cider)
+;; (add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+;; (add-hook 'cider-mode-hook 'ac-cider-setup)
+;; (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+;; (eval-after-load "auto-complete"
+;;   '(progn
+;;      (add-to-list 'ac-modes 'cider-mode)
+;;      (add-to-list 'ac-modes 'cider-repl-mode)))
 
 ;; Disable entries in the popup menu will also display the namespace that the symbol belongs to.
-(setq ac-cider-show-ns nil)
+;; (setq ac-cider-show-ns nil)
 
 ;; rainbow delimiters
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
@@ -50,6 +51,10 @@
 
 ;; yasnippet
 (use-package clojure-snippets :ensure t)
+
+;; indentation
+;; (set-face-background 'highlight-indentation-face "#262626")
+;; (add-hook 'clojure-mode-hook 'highlight-indentation-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

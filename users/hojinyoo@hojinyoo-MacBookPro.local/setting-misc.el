@@ -24,8 +24,31 @@
     (setq exec-path (split-string path-from-shell path-separator))))
 (when (equal system-type 'darwin) (set-exec-path-from-shell-PATH))
 
-(set-default-font "Source Code Pro" nil t)
-(set-face-attribute 'default nil :height 125)
+;; (set-default-font "Source Code Pro" nil t)
+;; (set-face-attribute 'default nil :height 125)
 
-(use-package wgrep
-  :ensure t)
+(use-package wgrep :ensure t)
+
+;;; stole from git-link
+(defun git-link-tree (remote)
+  "Create a URL for the current buffer's REMOTE repository homepage.
+The URL will be added to the kill ring.  If `git-link-open-in-browser'
+is non-nil also call `browse-url'."
+
+  (interactive (list (git-link--select-remote)))
+  (let ((remote-host (git-link--remote-host remote)))
+    (if remote-host
+        ;;TODO: shouldn't assume https, need service specific handler like others
+        (git-link--new (format "https://%s/%s/tree/%s" (git-link--remote-host remote) (git-link--remote-dir remote) (git-link--branch)))
+      (error  "Remote `%s' is unknown or contains an unsupported URL" remote))))
+
+(use-package dumb-jump
+  :ensure t
+  :bind (("M-g o" . dumb-jump-go-other-window)
+         ("M-g j" . dumb-jump-go)
+         ("M-g i" . dumb-jump-go-prompt)
+         ("M-g x" . dumb-jump-go-prefer-external)
+         ("M-g z" . dumb-jump-go-prefer-external-other-window))
+  :config
+  (setq dumb-jump-selector 'ivy)
+  (setq dumb-jump-aggressive nil))

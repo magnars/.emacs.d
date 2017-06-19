@@ -7,11 +7,20 @@
   (setq-default save-place t)           ; FIXME : (save-place-mode 1) for 25.1 or latter
   (setq save-place-file (expand-file-name ".places" user-emacs-directory)) )
 
+;; code completion
+(use-package company
+  :ensure t
+  :config
+  (global-company-mode)
+  (global-set-key (kbd "TAB") #'company-indent-or-complete-common))
+
 ;; dynamic abbrev expansion, similar to auto-completion
-(use-package dabbrev
-  :defer t
-  :init (setf abbrev-file-name (locate-user-emacs-file "local/abbrev_defs"))
-  :config (setf dabbrev-case-fold-search nil))
+;; (use-package dabbrev
+;;   :defer t
+;;   :init (setf abbrev-file-name (locate-user-emacs-file "local/abbrev_defs"))
+;;   :config (setf dabbrev-case-fold-search nil))
+
+;; (autoload 'auto-complete-mode "auto-complete" nil t)
 
 ;; frame zoom in/out
 ;; (use-package zoom-frm :ensure t)
@@ -142,6 +151,10 @@
   (projectile-global-mode)
   (setq magit-completing-read-function 'ivy-completing-read))
 
+(use-package git-link
+  :ensure t
+  :config (setq git-link-open-in-browser t))
+
 (require 'setup-org)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Visual Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -150,14 +163,17 @@
 ;;   :ensure t)
 ;; (use-package suscolors-theme
 ;;   :ensure t)
-
-(use-package idea-darkula-theme
-  :ensure t)
+(use-package zenburn-theme
+  :ensure t
+  :config (load-theme 'zenburn t))
+(set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
+;; (use-package idea-darkula-theme
+;;   :ensure t)
 
 (use-package fill-column-indicator
   :ensure t
   :config
-  (setq fci-rule-color "#111122"))
+  (setq fci-rule-color "#101010"))
 
 ;; (display-time-mode nil)
 
@@ -229,7 +245,5 @@
 ;;   (add-hook 'eshell-mode-hook ; Bad, eshell, bad!
 ;;             (lambda ()
 ;;               (define-key eshell-mode-map (kbd "<f1>") #'quit-window))))
-
-(autoload 'auto-complete-mode "auto-complete" nil t)
 
 (provide 'default-packages)
