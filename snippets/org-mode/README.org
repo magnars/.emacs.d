@@ -1,0 +1,41 @@
+#+title: yasnippets
+#+options: ^:nil
+
+Snippets for org-mode. See [[https://github.com/capitaomorte/yasnippet][Yasnippet in Github]].
+
+They have bindings ~C-c y~ plus an extra letter.
+
+I have added a ~condition~ statement so that the snippets can be
+expanded only at the beginning of the line.
+
+| name                                | key        | letter | explanation                          |
+|-------------------------------------+------------+--------+--------------------------------------|
+| #+begin_ ...#+end_                  | block      | b      |                                      |
+| #+srcname:..#+begin_src...#+end_src | sb         | s      | source block with name               |
+| attr_html                           | ath        |        | alt="$1" img class="aligncenter"     |
+| attr_latex                          | atl        |        | ${1:width=$2\textwidth}              |
+| author                              | aut        | a      | inserts ~#+author:~                    |
+| corollary                           | cor        | c      | (uses reftex)                        |
+| definition                          | def        | d      | (uses reftex)                        |
+| ditaa                               | dit        |        | #+begin_ditaa,+end_ditaa             |
+| el                                  | el         |        | #+begin_src emacs-lisp,+end_src      |
+| email                               | email      |        | inserts ~#+email:~                     |
+| equation                            | eqn        | e      | (uses reftex)                        |
+| figure                              | fig        | f      | asks for image file                  |
+| language                            | lan        |        | inserts ~#+language:~ (with choice)    |
+| LaTeX class                         | lcl        |        | inserts ~#+latex_class:~ (with choice) |
+| LaTeX header                        | lhe        |        | inserts ~#+latex_header:~              |
+| lemma                               | lem        | l      | (uses reftex)                        |
+| options                             | opt        | o      | inserts ~#+options:~                   |
+| proof                               | prf        |        |                                      |
+| properties folded                   | properties |        | inserts visibility folded property   |
+| proposition                         | pro        | p      | (uses reftex)                        |
+| startup                             | sta        |        | inserts ~#+startup:~                   |
+| text                                | text       |        | inserts ~#+text:~                      |
+| theorem                             | thm        | t      | (uses reftex)                        |
+| tikz-picture                        | tkz        | z      | (uses reftex)                        |
+| title                               | title      |        | inserts ~#+title:~                     |
+
+
+
+

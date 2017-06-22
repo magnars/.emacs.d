@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: definition
+# key: def
+# binding: C-c y d
+# condition: (or (= (current-column) 3) (= (current-column) 0))
+# contributor: Rafael Villarroel (rvf0068@gmail.com)
+# --
+# <<$1>>
+#+BEGIN_DEFINITION
+#+LATEX: \label{${1:"waiting"$(unless yas/modified-p (reftex-label "definition" 'dont-insert))}}%
+$0
+#+END_DEFINITION

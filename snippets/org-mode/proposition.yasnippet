@@ -1,0 +1,11 @@
+# name: proposition
+# key: pro
+# binding: C-c y p
+# condition: (or (= (current-column) 3) (= (current-column) 0))
+# contributor: Rafael Villarroel (rvf0068@gmail.com)
+# --
+# <<$1>>
+#+BEGIN_PROPOSITION
+#+latex: \label{${1:"waiting"$(unless yas/modified-p (reftex-label "proposition" 'dont-insert))}}%
+$0
+#+END_PROPOSITION

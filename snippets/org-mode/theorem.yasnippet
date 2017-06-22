@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: theorem
+# key: thm
+# binding: C-c y t
+# condition: (or (= (current-column) 3) (= (current-column) 0))
+# contributor: Rafael Villarroel (rvf0068@gmail.com)
+# --
+# <<$1>>
+#+BEGIN_THEOREM
+#+latex: \label{${1:"waiting"$(unless yas/modified-p (reftex-label "theorem" 'dont-insert))}}%
+$0
+#+END_THEOREM

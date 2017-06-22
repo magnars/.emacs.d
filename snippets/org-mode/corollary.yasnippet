@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: corollary
+# key: cor
+# binding: C-c y c
+# condition: (or (= (current-column) 3) (= (current-column) 0))
+# contributor: Rafael Villarroel (rvf0068@gmail.com)
+# --
+# <<$1>>
+#+BEGIN_COROLLARY
+#+latex: \label{${1:"waiting"$(unless yas/modified-p (reftex-label "corollary" 'dont-insert))}}%
+$0
+#+END_COROLLARY

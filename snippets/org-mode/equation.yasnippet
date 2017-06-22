@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: equation
+# key: eqn
+# binding: C-c y e
+# condition: (or (= (current-column) 3) (= (current-column) 0))
+# contributor: Rafael Villarroel (rvf0068@gmail.com)
+# --
+# <<$1>>
+\begin{equation}
+\label{${1:"waiting for reftex-label call..."$(unless yas/modified-p (reftex-label nil 'dont-insert))}}%
+$0
+\end{equation}
