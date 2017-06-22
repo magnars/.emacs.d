@@ -103,9 +103,11 @@
   :init (ivy-mode 1)
   :bind (("C-c C-r" . ivy-resume)))
 
-(use-package swiper
-  :ensure t
-  :bind (("C-s" . swiper)))
+;; swiper is a package that improves the emacs text searching function, C-s.
+;; It does not work out for me since it does not work C-r, and escaping C-g is not smooth.
+;; (use-package swiper
+;;   :ensure t
+;;   :bind (("C-s" . swiper)))
 
 (use-package counsel
  :ensure t)
@@ -166,7 +168,7 @@
 (use-package zenburn-theme
   :ensure t
   :config (load-theme 'zenburn t))
-(set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
+(set-face-attribute 'region nil :background "#555")
 ;; (use-package idea-darkula-theme
 ;;   :ensure t)
 
