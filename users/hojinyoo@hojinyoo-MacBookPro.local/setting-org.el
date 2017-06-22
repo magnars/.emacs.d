@@ -29,3 +29,5 @@
 ;; (set-face-attribute 'org-mode-line-clock nil
 ;;                     :weight 'bold :box '(:line-width 1 :color "#FFBB00") :foreground "white" :background "#FF4040")
 ;; (setq org-reverse-note-order t) ;; refiled headline will be the first under the taget
+
+(setq org-confirm-babel-evaluate t)

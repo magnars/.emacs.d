@@ -12,7 +12,6 @@
 (pyvenv-activate "~/env")
 
 (elpy-enable)
-(setq elpy-rpc-backend "jedi")
 (elpy-use-ipython)
 
 

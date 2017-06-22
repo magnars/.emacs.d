@@ -1,5 +1,11 @@
 (use-package org :ensure t)
 
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+
 ;; (defun myorg-update-parent-cookie ()
 ;;   (when (equal major-mode 'org-mode)
 ;;     (save-excursion
@@ -13,6 +19,7 @@
 ;; (defadvice kill-whole-line (after fix-cookies activate)
 ;;   (myorg-update-parent-cookie))
 
+(setq org-replace-disputed-keys t)
 (setq org-directory "~/Dropbox/org")
 ;; (setq org-default-notes-file (concat org-directory "/notes.org"))
 ;; (define-key global-map (kbd "M-<f6>") 'org-capture)

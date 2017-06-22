@@ -28,7 +28,7 @@
 ;; (add-hook 'cider-mode-hook #'company-mode)
 (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
 (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
-
+;; (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 ;; Instead of company mode
 ;; ac-cider (Auto-complete for the nREPL)
 ;; (require 'ac-cider)
@@ -83,18 +83,18 @@
   (untabify (point-min) (point-max))
   )
 
-(defun indent-or-expand (arg)
-  "Either indent according to mode, or expand the word preceding
-point."
-  (interactive "*P")
-  (if (and
-       (or (bobp) (= ?w (char-syntax (char-before))))
-       (or (eobp) (not (= ?w (char-syntax (char-after))))))
-      (dabbrev-expand arg)
-    (indent-according-to-mode)))
+;; (defun indent-or-expand (arg)
+;;   "Either indent according to mode, or expand the word preceding
+;; point."
+;;   (interactive "*P")
+;;   (if (and
+;;        (or (bobp) (= ?w (char-syntax (char-before))))
+;;        (or (eobp) (not (= ?w (char-syntax (char-after))))))
+;;       (dabbrev-expand arg)
+;;     (indent-according-to-mode)))
 
 (defun my-tab-fix ()
-  (local-set-key [tab] 'indent-or-expand))
+  (local-set-key [tab] 'company-indent-or-complete-common))
 
 (add-hook 'clojure-mode-hook
           #'(lambda ()
@@ -106,12 +106,14 @@ point."
               (setq tab-width 4)
               (setq indent-tabs-mode nil)
               (setq cider-auto-select-error-buffer nil)
-              (my-tab-fix)
+              ;; (my-tab-fix)
 
               (add-hook 'before-save-hook 'indent-whole-buffer nil t)
               (add-hook 'before-save-hook 'delete-trailing-whitespace)))
 
 (add-hook 'cider-repl-mode-hook 'paredit-mode)
+(add-hook 'cider-repl-mode-hook
+          #'(lambda () (my-tab-fix)))
 
 ;; let cider use the monorepo
 (setq cider-lein-parameters "monolith with-all :select :default repl :headless :host ::")

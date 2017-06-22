@@ -1,4 +1,3 @@
-(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
 (add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
 
 (yas-global-mode 1)
@@ -9,7 +8,7 @@
 ;; (use-package datomic-snippets)
 
 ;; Jump to end of snippet definition
-(define-key yas-keymap (kbd "<return>") 'yas-exit-all-snippets)
+;; (define-key yas-keymap (kbd "<return>") 'yas-exit-all-snippets)
 
 ;; Inter-field navigation
 (defun yas/goto-end-of-active-field ()
@@ -32,7 +31,7 @@
 (define-key yas-keymap (kbd "C-a") 'yas/goto-start-of-active-field)
 
 ;; No dropdowns please, yas
-(setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
+;; (setq yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))
 
 ;; No need to be so verbose
 (setq yas-verbosity 1)

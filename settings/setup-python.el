@@ -5,7 +5,9 @@
   :ensure t
   :config
   (elpy-enable)
-  (setq elpy-rpc-backend "jedi"))
+  ; use rope
+  ;(setq elpy-rpc-backend "jedi")
+  )
 
 (use-package ein
   :ensure t
