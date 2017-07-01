@@ -155,7 +155,9 @@
 
 (use-package git-link
   :ensure t
-  :config (setq git-link-open-in-browser t))
+  :config (setq git-link-open-in-browser t)
+  :bind (("C-M-;" . git-link-tree)
+         ("C-M-'" . git-link)))
 
 (require 'setup-org)
 
@@ -189,6 +191,10 @@
   ;; (setq sml/name-width 20)
   ;; (rich-minority-mode 1)
   ;; (setf rm-blacklist "")
+  ;; (setq sml/theme 'dark)
+  ;; (setq sml/theme 'light)
+  (setq sml/theme 'respectful)
+  (setq sml/active-background-color "black")
   (sml/setup))
 
 ;; (use-package color-theme-sanityinc-tomorrow
