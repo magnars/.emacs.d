@@ -27,6 +27,8 @@
 ;; (add-hook 'cider-repl-mode-hook #'company-mode)
 ;; (add-hook 'cider-mode-hook #'company-mode)
 (add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+(add-hook 'cider-repl-mode-hook #'toggle-truncate-lines)
+(add-hook 'cider-stacktrace-mode-hook #'toggle-truncate-lines)
 (add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
 ;; (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 ;; Instead of company mode
