@@ -37,6 +37,8 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package wgrep :ensure t)
 
+(use-package git-link :ensure t)
+
 ;;; stole from git-link
 (defun git-link-tree (remote)
   "Create a URL for the current buffer's REMOTE repository homepage.

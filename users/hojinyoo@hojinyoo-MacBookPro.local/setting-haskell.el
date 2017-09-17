@@ -1,8 +1,7 @@
 (use-package haskell-mode
   :ensure t)
 
-(use-package scion
-  :ensure t)
+;; (use-package scion :ensure t)
 
 (use-package hindent
   :ensure t)

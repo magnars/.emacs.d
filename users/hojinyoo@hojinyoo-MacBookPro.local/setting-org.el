@@ -31,3 +31,4 @@
 ;; (setq org-reverse-note-order t) ;; refiled headline will be the first under the taget
 
 (setq org-confirm-babel-evaluate t)
+(add-hook 'org-mode-hook 'paredit-mode)

@@ -5,8 +5,7 @@
         (setq indent-tabs-mode nil)
         (setq tab-width 2)
         (setq python-indent 2)
-        (setq py-autopep8-options '("--indent-size=2"))
-))
+        (setq py-autopep8-options '("--indent-size=2"))))
 
 (setenv "PYTHONPATH" "/Users/hojin.yoo/project/repo/scripts/_modules/python")
 (pyvenv-activate "~/project/python/")

@@ -2,20 +2,15 @@
 
 (add-hook 'python-mode-hook
       (lambda ()
-        (setq indent-tabs-mode nil)
-        ;; (setq tab-width 2)
-        ;; (setq python-indent 2)
-        ;; (setq py-autopep8-options '("--indent-size=2"))
-))
+        (setq indent-tabs-mode nil)))
+;; (add-hook 'python-mode-hook 'paredit-mode)
 
-;; (setenv "PYTHONPATH" "/Users/hojin.yoo/project/repo/scripts/_modules/python")
 (pyvenv-activate "~/env")
 
 (elpy-enable)
 (elpy-use-ipython)
 
-
-(setq python-shell-interpreter "ipython" python-shell-interpreter-args "--simple-prompt --pprint")
+;; (setq python-shell-interpreter "ipython" python-shell-interpreter-args "--simple-prompt --pprint")
 (add-hook 'ein:connect-mode-hook 'ein:jedi-setup)
 (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
@@ -24,3 +19,9 @@
 (when (require 'flycheck nil t)
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+(setq ein:completion-backend 'ein:use-company-backend)
+;; (setq ein:use-auto-complete-superpack t)
+;; token : fbb91ad090b8cc1f3576e7cef941162027877f5f169c9f83
+;; (setq ein:console-args
+;;       (lambda (url-or-port) '("--ssh" "dev")))
