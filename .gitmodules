@@ -103,3 +103,6 @@
 [submodule "yasnippet-snippets"]
 	path = yasnippet-snippets
 	url = https://github.com/AndreaCrotti/yasnippet-snippets.git
+[submodule "site-lisp/kubemacider"]
+	path = site-lisp/kubemacider
+	url = git@github.com:hojinatmixpanel/kubemacider.git
