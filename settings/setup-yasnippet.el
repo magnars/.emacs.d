@@ -1,4 +1,4 @@
-(add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
+;; (add-to-list 'yas-snippet-dirs "~/.emacs.d/yasnippet-snippets")
 
 (yas-global-mode 1)
 
