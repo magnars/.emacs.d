@@ -14,6 +14,9 @@
 
 (use-package clojure-cheatsheet :ensure t)
 
+(add-to-list 'load-path "~/.emacs.d/site-lisp/kubemacider")
+(require 'kubemacider)
+
 ;; Cider &amp; nREPL
 (add-hook 'cider-mode-hook #'eldoc-mode)
 ;; (add-hook 'clojure-mode-hook 'turn-on-eldoc-mode)
