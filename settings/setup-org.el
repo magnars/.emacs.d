@@ -50,11 +50,11 @@
         (t "%^{language}")))
 
 (setq org-capture-templates
-      '(("t" "Todo" entry (file+headline (concat org-directory "/task.org") "Tasks")
-         "* TODO %?\n  %i\n  %a")
-        ("j" "Journal" entry (file+datetree (concat org-directory "/diary.org"))
-         "* %?\nEntered on %U\n  %i\n  %a")
-        ("s" "Code Snippet" entry (file (concat org-directory "/snippets.org"))
+      '(("t" "Todo" entry (file+headline (lambda () (concat org-directory "/task.org")) "Tasks")
+         "* TODO %?\n  %i")
+        ("j" "Journal" entry (file+olp+datetree (lambda () (concat org-directory "/diary.org")))
+         "* %?\nEntered on %U\n  %i")
+        ("s" "Code Snippet" entry (file (lambda () (concat org-directory "/snippets.org")))
          "* %U %?\t%^G\n#+BEGIN_SRC %(format \"%s\" (major-mode-to-lang (org-capture-get-major-mode)))\n%i\n#+END_SRC" :empty-lines 1)
         ;; ("j" "Journal" entry (file+datetree "~/Dropbox/org/diary.org")
         ;;  "* Event: %?\n\n  %i\n\n  From: %a" :empty-lines 1)
