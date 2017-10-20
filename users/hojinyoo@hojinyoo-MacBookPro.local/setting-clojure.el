@@ -85,8 +85,7 @@
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
-  (untabify (point-min) (point-max))
-  )
+  (untabify (point-min) (point-max)))
 
 ;; (defun indent-or-expand (arg)
 ;;   "Either indent according to mode, or expand the word preceding
@@ -143,22 +142,7 @@
 ;; (setq fci-rule-color "color-244")
 (add-hook 'clojure-mode-hook 'fci-mode)
 
-(add-to-list 'tramp-methods
-              '("pod"
-                (tramp-login-program "kubectl")
-                (tramp-login-args
-                 (("exec")
-                  ("-it")
-                  ("%h")
-                  ("-n")
-                  ("contour")
-                  ("/bin/sh")))
-                (tramp-login-env
-                  (("SHELL")
-                   ("/bin/sh")))
-                (tramp-remote-shell "/bin/sh")))
-
 (cider-add-to-alist 'cider-jack-in-lein-plugins "cider/cider-nrepl" (upcase "0.14.0"))
 
-(use-package kubernetes
-  :ensure t)
+;; (use-package kubernetes
+;;   :ensure t)
