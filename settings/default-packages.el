@@ -103,12 +103,6 @@
   :init (ivy-mode 1)
   :bind (("C-c C-r" . ivy-resume)))
 
-;; swiper is a package that improves the emacs text searching function, C-s.
-;; It does not work out for me since it does not work C-r, and escaping C-g is not smooth.
-;; (use-package swiper
-;;   :ensure t
-;;   :bind (("C-s" . swiper)))
-
 (use-package counsel
  :ensure t)
 
@@ -123,19 +117,8 @@
   :ensure t
   :config
   (require 'smartparens-config)
-  (smartparens-global-mode 1))
-
-(use-package paredit
-  :ensure t
-  :config
-  (add-hook 'clojure-mode-hook 'paredit-mode)
-  (add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
-  (add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
-  (add-hook 'ielm-mode-hook             #'enable-paredit-mode)
-  (add-hook 'lisp-mode-hook             #'enable-paredit-mode)
-  (add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
-  (add-hook 'scheme-mode-hook           #'enable-paredit-mode)
-  (show-paren-mode 1))
+  (smartparens-global-strict-mode t)
+  (sp-use-paredit-bindings))
 
 (use-package projectile
   :ensure t
@@ -171,8 +154,6 @@
   :ensure t
   :config (load-theme 'zenburn t))
 (set-face-attribute 'region nil :background "#555")
-;; (use-package idea-darkula-theme
-;;   :ensure t)
 
 (use-package fill-column-indicator
   :ensure t
