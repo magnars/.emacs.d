@@ -1,122 +1,38 @@
-(require 'clojure-mode)
-(require 'clojure-mode-extra-font-locking)
+(use-package rainbow-delimiters :ensure t)
+(use-package rainbow-mode :ensure t)
+(use-package fill-column-indicator :ensure t)
+(use-package cider :ensure t)
+(use-package clojure-mode :ensure t)
+(use-package company :ensure t)
+(use-package clojure-cheatsheet :ensure t)
+(use-package clojure-snippets :ensure t)
+(use-package clojure-mode-extra-font-locking :ensure t)
+(use-package flycheck-clojure :ensure t)
+;; (use-package clj-refactor :ensure t)
+(use-package ob-clojure
+  :ensure t
+  :config (setq org-babel-clojure-backend 'cider))
 
-(defadvice clojure-test-run-tests (before save-first activate)
-  (save-buffer))
+;;; clojure-mode
+(defun my-clojure-mode-hook ()
+  ;; (clj-refactor-mode 1)
+  (setq fci-rule-column 100)
+  (setq fci-rule-width 1))
+(add-hook 'clojure-mode-hook 'my-clojure-mode-hook)
 
-(defadvice nrepl-load-current-buffer (before save-first activate)
-  (save-buffer))
+(add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
+(add-hook 'clojure-mode-hook 'fci-mode)
 
-(require 'clj-refactor)
+(add-hook 'clojure-mode-hook #'subword-mode)
+(add-hook 'clojure-mode-hook #'turn-on-smartparens-strict-mode)
 
-(setq cljr-favor-prefix-notation nil)
-(setq cljr-favor-private-functions nil)
+;;; cider
+(defun my-tab-fix ()
+  (local-set-key [tab] 'company-indent-or-complete-common))
+(add-hook 'cider-repl-mode-hook 'my-tab-fix)
 
-(cljr-add-keybindings-with-modifier "C-s-")
-(define-key clj-refactor-map (kbd "C-x C-r") 'cljr-rename-file)
-
-(define-key clojure-mode-map [remap paredit-forward] 'clojure-forward-logical-sexp)
-(define-key clojure-mode-map [remap paredit-backward] 'clojure-backward-logical-sexp)
-
-(setq cider-pprint-fn 'pprint)
-
-(require 'core-async-mode)
-
-(defun enable-clojure-mode-stuff ()
-  (clj-refactor-mode 1)
-  (when (not (s-ends-with-p "/dev/user.clj" (buffer-file-name)))
-    (core-async-mode 1)))
-
-(add-hook 'clojure-mode-hook 'enable-clojure-mode-stuff)
-
-(require 'symbol-focus)
-(define-key clojure-mode-map (kbd "M-s-f") 'sf/focus-at-point)
-
-(defun clj-duplicate-top-level-form ()
-  (interactive)
-  (save-excursion
-    (cljr--goto-toplevel)
-    (insert (cljr--extract-sexp) "\n")
-    (cljr--just-one-blank-line)))
-
-(define-key clojure-mode-map (kbd "M-s-d") 'clj-duplicate-top-level-form)
-
-(add-to-list 'cljr-project-clean-functions 'cleanup-buffer)
-
-(define-key clojure-mode-map (kbd "C->") 'cljr-thread)
-(define-key clojure-mode-map (kbd "C-<") 'cljr-unwind)
-
-(define-key clojure-mode-map (kbd "s-j") 'clj-jump-to-other-file)
-
-(define-key clojure-mode-map (kbd "C-.") 'clj-hippie-expand-no-case-fold)
-
-(defun clj-hippie-expand-no-case-fold ()
-  (interactive)
-  (let ((old-syntax (char-to-string (char-syntax ?/))))
-    (modify-syntax-entry ?/ " ")
-    (hippie-expand-no-case-fold)
-    (modify-syntax-entry ?/ old-syntax)))
-
-(require 'cider)
-
-(define-key cider-repl-mode-map (kbd "<home>") nil)
-(define-key cider-repl-mode-map (kbd "C-,") 'complete-symbol)
-(define-key cider-mode-map (kbd "C-,") 'complete-symbol)
-(define-key cider-mode-map (kbd "C-c C-q") 'nrepl-close)
-(define-key cider-mode-map (kbd "C-c C-Q") 'cider-quit)
-
-(require 'yesql-ghosts)
-
-;; indent [quiescent.dom :as d] specially
-
-(define-clojure-indent
-  (d/a 1)
-  (d/button 1)
-  (d/div 1)
-  (d/form 1)
-  (d/h1 1)
-  (d/h2 1)
-  (d/h3 1)
-  (d/h4 1)
-  (d/h5 1)
-  (d/hr 1)
-  (d/img 1)
-  (d/label 1)
-  (d/li 1)
-  (d/option 1)
-  (d/p 1)
-  (d/pre 1)
-  (d/select 1)
-  (d/small 1)
-  (d/span 1)
-  (d/strong 1)
-  (d/ul 1)
-  (d/svg 1)
-
-  ;; Hafslund specifics
-  (e/prose 1)
-  (e/value 1)
-  (e/section 1)
-  (e/section-prose 1)
-  (e/page 1)
-  (e/instructions 1)
-  (l/padded 1)
-  (l/bubble-grid 1)
-  (l/slider 1)
-  (l/bottom-fixed 1)
-  (c/box 1)
-  (c/group 1)
-  (c/list 1))
-
-;; Don't warn me about the dangers of clj-refactor, fire the missiles!
-(setq cljr-warn-on-eval nil)
-
-;; Use figwheel for cljs repl
-
-(setq cider-cljs-lein-repl "(do (use 'figwheel-sidecar.repl-api) (start-figwheel!) (cljs-repl))")
-
-;; Indent and highlight more commands
-(put-clojure-indent 'match 'defun)
+;; Pretty print results in repl
+(setq cider-repl-use-pretty-printing t)
 
 ;; Hide nrepl buffers when switching buffers (switch to by prefixing with space)
 (setq nrepl-hide-special-buffers t)
@@ -127,188 +43,38 @@
 ;; Specify history file
 (setq cider-history-file "~/.emacs.d/nrepl-history")
 
-;; auto-select the error buffer when it's displayed
-(setq cider-auto-select-error-buffer t)
+;; Disable moving to error buffer
+(setq cider-auto-select-error-buffer nil)
 
 ;; Prevent the auto-display of the REPL buffer in a separate window after connection is established
 (setq cider-repl-pop-to-buffer-on-connect nil)
-
-;; Pretty print results in repl
-(setq cider-repl-use-pretty-printing t)
 
 ;; Don't prompt for symbols
 (setq cider-prompt-for-symbol nil)
 
 ;; Enable eldoc in Clojure buffers
 (add-hook 'cider-mode-hook #'eldoc-mode)
+;; (add-hook 'clojure-mode-hook 'turn-on-eldoc-mode)
 
-;; Some expectations features
+;; company mode
+(add-hook 'cider-repl-mode-hook #'cider-company-enable-fuzzy-completion)
+(add-hook 'cider-mode-hook #'cider-company-enable-fuzzy-completion)
 
-(require 'clj-autotest)
+;; truncate lines
+(add-hook 'cider-repl-mode-hook #'toggle-truncate-lines)
+(add-hook 'cider-stacktrace-mode-hook #'toggle-truncate-lines)
 
-(defun my-toggle-expect-focused ()
-  (interactive)
-  (save-excursion
-    (search-backward "(expect" (cljr--point-after 'cljr--goto-toplevel))
-    (forward-word)
-    (if (looking-at "-focused")
-        (paredit-forward-kill-word)
-      (insert "-focused"))))
+;; show nrepl server port
+(setq nrepl-buffer-name-show-port t)
 
-(defun my-remove-all-focused ()
-  (interactive)
-  (save-excursion
-    (goto-char (point-min))
-    (while (search-forward "(expect-focused" nil t)
-      (delete-char -8))))
+;; cider test mode - show report
+(setq cider-test-show-report-on-success t)
 
-(define-key clj-refactor-map
-  (cljr--key-pairs-with-modifier "C-s-" "xf") 'my-toggle-expect-focused)
+;; retain history
+(setq cider-repl-wrap-history t)
+(setq cider-repl-history-size 10000)
+(setq cider-repl-history-file (concat (getenv "HOME") "/.emacs.d/cider-history"))
 
-(define-key clj-refactor-map
-  (cljr--key-pairs-with-modifier "C-s-" "xr") 'my-remove-all-focused)
-
-;; Cycle between () {} []
-
-(defun live-delete-and-extract-sexp ()
-  "Delete the sexp and return it."
-  (interactive)
-  (let* ((begin (point)))
-    (forward-sexp)
-    (let* ((result (buffer-substring-no-properties begin (point))))
-      (delete-region begin (point))
-      result)))
-
-(defun live-cycle-clj-coll ()
-  "convert the coll at (point) from (x) -> {x} -> [x] -> (x) recur"
-  (interactive)
-  (let* ((original-point (point)))
-    (while (and (> (point) 1)
-                (not (equal "(" (buffer-substring-no-properties (point) (+ 1 (point)))))
-                (not (equal "{" (buffer-substring-no-properties (point) (+ 1 (point)))))
-                (not (equal "[" (buffer-substring-no-properties (point) (+ 1 (point))))))
-      (backward-char))
-    (cond
-     ((equal "(" (buffer-substring-no-properties (point) (+ 1 (point))))
-      (insert "{" (substring (live-delete-and-extract-sexp) 1 -1) "}"))
-     ((equal "{" (buffer-substring-no-properties (point) (+ 1 (point))))
-      (insert "[" (substring (live-delete-and-extract-sexp) 1 -1) "]"))
-     ((equal "[" (buffer-substring-no-properties (point) (+ 1 (point))))
-      (insert "(" (substring (live-delete-and-extract-sexp) 1 -1) ")"))
-     ((equal 1 (point))
-      (message "beginning of file reached, this was probably a mistake.")))
-    (goto-char original-point)))
-
-(define-key clojure-mode-map (kbd "C-`") 'live-cycle-clj-coll)
-
-;; Warn about missing nREPL instead of doing stupid things
-
-(defun nrepl-warn-when-not-connected ()
-  (interactive)
-  (message "Oops! You're not connected to an nREPL server. Please run M-x cider or M-x cider-jack-in to connect."))
-
-(define-key clojure-mode-map (kbd "C-M-x")   'nrepl-warn-when-not-connected)
-(define-key clojure-mode-map (kbd "C-x C-e") 'nrepl-warn-when-not-connected)
-(define-key clojure-mode-map (kbd "C-c C-e") 'nrepl-warn-when-not-connected)
-(define-key clojure-mode-map (kbd "C-c C-l") 'nrepl-warn-when-not-connected)
-(define-key clojure-mode-map (kbd "C-c C-r") 'nrepl-warn-when-not-connected)
-(define-key clojure-mode-map (kbd "C-c C-z") 'nrepl-warn-when-not-connected)
-(define-key clojure-mode-map (kbd "C-c C-k") 'nrepl-warn-when-not-connected)
-(define-key clojure-mode-map (kbd "C-c C-n") 'nrepl-warn-when-not-connected)
-(define-key clojure-mode-map (kbd "C-c C-q") 'nrepl-warn-when-not-connected)
-
-(setq cljr-magic-require-namespaces
-      '(("io"   . "clojure.java.io")
-        ("set"  . "clojure.set")
-        ("str"  . "clojure.string")
-        ("walk" . "clojure.walk")
-        ("zip"  . "clojure.zip")
-        ("time" . "clj-time.core")
-        ("log"  . "clojure.tools.logging")
-        ("json" . "cheshire.core")))
-
-;; refer all from expectations
-
-(setq cljr-expectations-test-declaration "[expectations :refer :all]")
-
-;; Add requires to blank devcards files
-
-(defun cljr--find-source-ns-of-devcard-ns (test-ns test-file)
-  (let* ((ns-chunks (split-string test-ns "[.]" t))
-         (test-name (car (last ns-chunks)))
-         (src-dir-name (s-replace "devcards/" "src/" (file-name-directory test-file)))
-         (replace-underscore (-partial 's-replace "_" "-"))
-         (src-ns (car (--filter (or (s-prefix-p it test-name)
-                                    (s-suffix-p it test-name))
-                                (-map (lambda (file-name)
-                                        (funcall replace-underscore
-                                                 (file-name-sans-extension file-name)))
-                                      (directory-files src-dir-name))))))
-    (when src-ns
-      (mapconcat 'identity (append (butlast ns-chunks) (list src-ns)) "."))))
-
-(defun clj--find-devcards-component-name ()
-  (or
-   (ignore-errors
-     (with-current-buffer
-         (find-file-noselect (clj--src-file-name-from-cards (buffer-file-name)))
-       (save-excursion
-         (goto-char (point-max))
-         (search-backward "defcomponent ")
-         (clojure-forward-logical-sexp)
-         (skip-syntax-forward " ")
-         (let ((beg (point))
-               (end (progn (re-search-forward "\\w+")
-                           (point))))
-           (buffer-substring-no-properties beg end)))))
-   ""))
-
-(defun cljr--add-card-declarations ()
-  (save-excursion
-    (let* ((ns (clojure-find-ns))
-           (source-ns (cljr--find-source-ns-of-devcard-ns ns (buffer-file-name))))
-      (cljr--insert-in-ns ":require")
-      (when source-ns
-        (insert "[" source-ns " :refer [" (clj--find-devcards-component-name) "]]"))
-      (cljr--insert-in-ns ":require")
-      (insert "[devcards.core :refer-macros [defcard]]"))
-    (indent-region (point-min) (point-max))))
-
-(defadvice cljr--add-ns-if-blank-clj-file (around add-devcards activate)
-  (ignore-errors
-    (when (and cljr-add-ns-to-blank-clj-files
-               (cljr--clojure-ish-filename-p (buffer-file-name))
-               (= (point-min) (point-max)))
-      ad-do-it
-      (when (clj--is-card? (buffer-file-name))
-        (cljr--add-card-declarations)))))
-
-;; Set up linting of clojure code with eastwood
-
-;; Make sure to add [acyclic/squiggly-clojure "0.1.2-SNAPSHOT"]
-;; to your :user :dependencies in .lein/profiles.clj
-
-(require 'flycheck-clojure)
-
-(defun my-cider-mode-enable-flycheck ()
-  ;; (when (and (s-ends-with-p ".clj" (buffer-file-name))
-  ;;            (not (s-ends-with-p "/dev/user.clj" (buffer-file-name))))
-  ;;   (flycheck-mode 1))
-  )
-
-(add-hook 'cider-mode-hook 'my-cider-mode-enable-flycheck)
-
-(eval-after-load 'flycheck '(add-to-list 'flycheck-checkers 'clojure-cider-eastwood))
-
-;; Make q quit out of find-usages to previous window config
-
-(defadvice cljr-find-usages (before setup-grep activate)
-  (window-configuration-to-register ?$))
-
-;; ------------
-
-;; TODO: Loot more stuff from:
-;;  - https://github.com/overtone/emacs-live/blob/master/packs/dev/clojure-pack/config/paredit-conf.el
-
+;; (eval-after-load 'flycheck '(add-to-list 'flycheck-checkers 'clojure-cider-eastwood))
 
 (provide 'setup-clojure-mode)
