@@ -46,8 +46,8 @@
 ;; Disable moving to error buffer
 (setq cider-auto-select-error-buffer nil)
 
-;; Prevent the auto-display of the REPL buffer in a separate window after connection is established
-(setq cider-repl-pop-to-buffer-on-connect nil)
+;; Auto-display the REPL buffer in a separate window after connection
+(setq cider-repl-pop-to-buffer-on-connect t)
 
 ;; Don't prompt for symbols
 (setq cider-prompt-for-symbol nil)
@@ -77,4 +77,6 @@
 
 ;; (eval-after-load 'flycheck '(add-to-list 'flycheck-checkers 'clojure-cider-eastwood))
 
+;; see https://github.com/clojure-emacs/cider/blob/master/doc/using_the_repl.md
+;; :repl-options {:init (set! *print-length* 50)}
 (provide 'setup-clojure-mode)
