@@ -60,4 +60,6 @@
         ;;  "* Event: %?\n\n  %i\n\n  From: %a" :empty-lines 1)
         ))
 
+(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+
 (provide 'setup-org)

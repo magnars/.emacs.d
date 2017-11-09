@@ -6,9 +6,16 @@
   :config
   (elpy-enable)
   (elpy-use-ipython)
-  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
   (remove-hook 'elpy-modules 'elpy-module-flymake)
-  (setq elpy-rpc-backend "jedi"))
+  (add-hook 'elpy-mode-hook 'flycheck-mode)
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+  (setq elpy-rpc-backend "jedi")
+  (eval-after-load 'elpy
+          '(progn
+             (define-key elpy-mode-map (kbd "<C-up>") nil)
+             (define-key elpy-mode-map (kbd "<C-down>") nil)
+             (define-key elpy-mode-map (kbd "<C-left>") nil)
+             (define-key elpy-mode-map (kbd "<C-right>") nil))))
 
 (use-package ein
   :ensure t
@@ -19,14 +26,22 @@
   ;;       (lambda (url-or-port) '("--ssh" "dev")))
   (setq ein:completion-backend 'ein:use-company-backend))
 
-;; (use-package smartrep
-;;   :ensure t
-;;   :config
-;;   (setq ein:use-smartrep t))
+(use-package smartrep :ensure t)
+
+(add-hook 'ein:notebook-mode-hook #'smartparens-mode)
+;; (setq ein:use-smartrep t)
+
+;; workaround python console issue
+;; https://github.com/millejoh/emacs-ipython-notebook/issues/191
+(setenv "JUPYTER_CONSOLE_TEST" "1")
+;; https://github.com/jorgenschaefer/elpy/issues/887
+(setq python-shell-completion-native-enable nil)
 
 ;; (add-hook 'python-mode-hook
-;;       (lambda ()
-;;         (setq indent-tabs-mode nil)))
+;;           (progn
+;;             ;; (setq indent-tabs-mode nil))
+;;             (local-set-key (kbd "<C-up>") 'sgml-skip-tag-forward)
+;;             (local-set-key (kbd "<C-down>") 'sgml-skip-tag-backward))
 
 (setq python-shell-interpreter "ipython" python-shell-interpreter-args "--simple-prompt --pprint")
 ;; (setq python-shell-interpreter-args "--simple-prompt -i")
@@ -52,5 +67,10 @@
 ;;             ;;   (pyvenv-restart-python)
 ;;             ;;   (elpy-shell-send-region-or-buffer (and )rg))
 ;;             ))
+
+;; active Babel languages
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ein . t)))
 
 (provide 'setup-python)
