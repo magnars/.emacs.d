@@ -125,11 +125,10 @@
   :config
   (projectile-global-mode)
   (setq projectile-completion-system 'ivy)
-  (counsel-projectile-on)
-  (setq projectile-mode-line '(:eval (format " Projectile[%s]" (projectile-project-name)))))
+  ;(setq projectile-mode-line '(:eval (format " Projectile[%s]" (projectile-project-name))))
+  (counsel-projectile-on))
 
-(use-package counsel-projectile
- :ensure t)
+(use-package counsel-projectile :ensure t)
 
 (use-package magit
   :ensure t

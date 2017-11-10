@@ -1,4 +1,5 @@
 (use-package org :ensure t)
+(use-package htmlize :ensure t)
 
 ;; Make windmove work in org-mode:
 (add-hook 'org-shiftup-final-hook 'windmove-up)
@@ -19,6 +20,8 @@
 ;; (defadvice kill-whole-line (after fix-cookies activate)
 ;;   (myorg-update-parent-cookie))
 
+(setq org-startup-indented t)
+(setq org-src-preserve-indentation t)
 (setq org-replace-disputed-keys t)
 (setq org-directory "~/Dropbox/org")
 ;; (setq org-default-notes-file (concat org-directory "/notes.org"))

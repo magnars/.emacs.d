@@ -12,8 +12,8 @@
   (setq elpy-rpc-backend "jedi")
   (eval-after-load 'elpy
           '(progn
-             (define-key elpy-mode-map (kbd "<C-up>") nil)
-             (define-key elpy-mode-map (kbd "<C-down>") nil)
+             (define-key elpy-mode-map (kbd "<M-up>") nil)
+             (define-key elpy-mode-map (kbd "<M-down>") nil)
              (define-key elpy-mode-map (kbd "<C-left>") nil)
              (define-key elpy-mode-map (kbd "<C-right>") nil))))
 
@@ -26,9 +26,17 @@
   ;;       (lambda (url-or-port) '("--ssh" "dev")))
   (setq ein:completion-backend 'ein:use-company-backend))
 
-(use-package smartrep :ensure t)
+;; (use-package smartrep :ensure t)
 
 (add-hook 'ein:notebook-mode-hook #'smartparens-mode)
+
+(sp-with-modes 'ein:notebook-multilang-mode
+  (sp-local-pair "'" "'" :unless '(sp-in-comment-p sp-in-string-quotes-p) :post-handlers '(:add sp-python-fix-tripple-quotes))
+  (sp-local-pair "\"" "\"" :post-handlers '(:add sp-python-fix-tripple-quotes))
+  (sp-local-pair "'''" "'''")
+  (sp-local-pair "\\'" "\\'")
+  (sp-local-pair "\"\"\"" "\"\"\""))
+
 ;; (setq ein:use-smartrep t)
 
 ;; workaround python console issue
