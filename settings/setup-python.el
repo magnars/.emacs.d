@@ -24,7 +24,13 @@
   ;; (setq ein:use-auto-complete-superpack t)
   ;; (setq ein:console-args
   ;;       (lambda (url-or-port) '("--ssh" "dev")))
-  (setq ein:completion-backend 'ein:use-company-backend))
+  (setq ein:completion-backend 'ein:use-company-backend)
+  (eval-after-load 'ein:notebook-mode
+          '(progn
+             (define-key ein:notebook-mode-map (kbd "<M-up>") nil)
+             (define-key ein:notebook-mode-map (kbd "<M-down>") nil)
+             (define-key ein:notebook-mode-map (kbd "<C-left>") nil)
+             (define-key ein:notebook-mode-map (kbd "<C-right>") nil))))
 
 ;; (use-package smartrep :ensure t)
 

@@ -2,10 +2,10 @@
 (use-package htmlize :ensure t)
 
 ;; Make windmove work in org-mode:
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
+(add-hook 'org-shiftup-hook 'windmove-up)
+(add-hook 'org-shiftleft-hook 'windmove-left)
+(add-hook 'org-shiftdown-hook 'windmove-down)
+(add-hook 'org-shiftright-hook 'windmove-right)
 
 ;; (defun myorg-update-parent-cookie ()
 ;;   (when (equal major-mode 'org-mode)
@@ -63,6 +63,8 @@
         ;;  "* Event: %?\n\n  %i\n\n  From: %a" :empty-lines 1)
         ))
 
-(add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+;; (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+
+(setq org-export-with-sub-superscripts nil)
 
 (provide 'setup-org)

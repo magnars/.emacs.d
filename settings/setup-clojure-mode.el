@@ -1,6 +1,5 @@
 (use-package rainbow-delimiters :ensure t)
 (use-package rainbow-mode :ensure t)
-(use-package fill-column-indicator :ensure t)
 (use-package cider :ensure t)
 (use-package clojure-mode :ensure t)
 (use-package company :ensure t)
@@ -16,12 +15,15 @@
 ;;; clojure-mode
 (defun my-clojure-mode-hook ()
   ;; (clj-refactor-mode 1)
-  (setq fci-rule-column 100)
-  (setq fci-rule-width 1))
+  ;; disable fci due to conflict with htmlize
+  ;; (setq fci-rule-column 100)
+  ;; (setq fci-rule-width 1)
+)
+
 (add-hook 'clojure-mode-hook 'my-clojure-mode-hook)
 
 (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
-(add-hook 'clojure-mode-hook 'fci-mode)
+;; (add-hook 'clojure-mode-hook 'fci-mode)
 
 (add-hook 'clojure-mode-hook #'subword-mode)
 (add-hook 'clojure-mode-hook #'turn-on-smartparens-strict-mode)
@@ -79,4 +81,5 @@
 
 ;; see https://github.com/clojure-emacs/cider/blob/master/doc/using_the_repl.md
 ;; :repl-options {:init (set! *print-length* 50)}
+
 (provide 'setup-clojure-mode)

@@ -155,10 +155,11 @@
   :config (load-theme 'zenburn t))
 (set-face-attribute 'region nil :background "#555")
 
-(use-package fill-column-indicator
-  :ensure t
-  :config
-  (setq fci-rule-color "#101010"))
+;; disable fci to avoid the conflict with htmlize
+;; (use-package fill-column-indicator
+;;   :ensure t
+;;   :config
+;;   (setq fci-rule-color "#101010"))
 
 ;; (display-time-mode nil)
 
