@@ -5,7 +5,7 @@
   :ensure t
   :config
   (elpy-enable)
-  (elpy-use-ipython)
+  ;; (elpy-use-ipython) ;; deprecated
   (remove-hook 'elpy-modules 'elpy-module-flymake)
   (add-hook 'elpy-mode-hook 'flycheck-mode)
   (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
@@ -57,7 +57,9 @@
 ;;             (local-set-key (kbd "<C-up>") 'sgml-skip-tag-forward)
 ;;             (local-set-key (kbd "<C-down>") 'sgml-skip-tag-backward))
 
-(setq python-shell-interpreter "ipython" python-shell-interpreter-args "--simple-prompt --pprint")
+(setq python-shell-interpreter "jupyter"
+      python-shell-interpreter-args "console --simple-prompt")
+
 ;; (setq python-shell-interpreter-args "--simple-prompt -i")
 ;; (setq python-shell-interpreter-interactive-arg "--simple-prompt -i")
 

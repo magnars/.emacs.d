@@ -126,9 +126,11 @@
   (projectile-global-mode)
   (setq projectile-completion-system 'ivy)
   ;(setq projectile-mode-line '(:eval (format " Projectile[%s]" (projectile-project-name))))
-  (counsel-projectile-on))
+  )
 
-(use-package counsel-projectile :ensure t)
+(use-package counsel-projectile :ensure t
+  :config
+  (counsel-projectile-mode))
 
 (use-package magit
   :ensure t
@@ -224,6 +226,10 @@
   :ensure t
   :config
   (require 'setup-yasnippet))
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Specific Language ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -7,6 +7,7 @@
 ;; clojure mode hook and helpers
 
 (defun clojure-mode-custom-indent ()
+  "Custom identation."
   (put-clojure-indent 'fnk 'defun)
   (put-clojure-indent 'defnk 'defun)
   (put-clojure-indent 'for-map 1)
@@ -16,34 +17,59 @@
   (put-clojure-indent 'letk 1))
 
 (defun indent-whole-buffer ()
-  "indent whole buffer"
+  "Indent whole buffer."
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
 
 (defun indent-whole-buffer-c ()
-  "indent whole buffer"
+  "Indent whole buffer."
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max)))
 
-(add-hook 'clojure-mode-hook
-          #'(lambda ()
-              (clojure-mode-custom-indent)
-              (local-set-key (kbd "C-c C-i") 'indent-whole-buffer)
-              (local-set-key (kbd "C-c C-/") 'cider-test-run-ns-tests)
-              (setq c-basic-offset 4)
-              (setq tab-width 4)
-              (setq indent-tabs-mode nil)
-              (setq cider-auto-select-error-buffer nil)
+(defun lint-before-save ()
+  "Command for linting."
+  (clojure-mode-custom-indent)
+  (local-set-key (kbd "C-c C-i") 'indent-whole-buffer)
+  (local-set-key (kbd "C-c C-/") 'cider-test-run-ns-tests)
+  (setq c-basic-offset 4)
+  (setq tab-width 4)
+  (setq indent-tabs-mode nil)
+  (setq cider-auto-select-error-buffer nil)
 
-              (add-hook 'before-save-hook 'indent-whole-buffer nil t)
-              (add-hook 'before-save-hook 'delete-trailing-whitespace)))
+  (add-hook 'before-save-hook 'indent-whole-buffer nil t)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace))
+(add-hook 'clojure-mode-hook 'lint-before-save)
 
 ;; let cider use the monorepo
 (setq cider-lein-parameters "monolith with-all :select :default repl :headless :host ::")
 ; (setq cider-lein-parameters "monolith with-all :select :default with-profile dev repl :headless :host ::")
+(cider-add-to-alist 'cider-jack-in-lein-plugins "cider/cider-nrepl" (upcase "0.16.0"))
+;; (setq cider-jack-in-lein-plugins nil)
 
-(cider-add-to-alist 'cider-jack-in-lein-plugins "cider/cider-nrepl" (upcase "0.15.1"))
+;; (use-package flycheck-tip
+;;   :ensure t
+;;   (flycheck-tip-use-timer 'verbose))
+
+(flycheck-clojure-setup)
+(use-package flycheck-pos-tip
+  :ensure t
+  :config (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
+
+;; (add-hook 'cider-mode-hook
+;;   (lambda () (setq next-error-function #'flycheck-next-error-function)))
+
+(defun clojure-minor-mode-hook ()
+  "My settings for clojure."
+    (clj-refactor-mode 1)
+    (yas-minor-mode 1)
+    (cljr-add-keybindings-with-prefix "C-c C-m"))
+(add-hook 'clojure-mode-hook 'clojure-minor-mode-hook)
+
+(cider-add-to-alist 'cider-jack-in-lein-plugins "refactor-nrepl" "2.3.1")
+(cider-add-to-alist 'cider-jack-in-dependencies "acyclic/squiggly-clojure" "0.1.8")
+
+(provide 'setting-clojure)
