@@ -3,7 +3,6 @@
 (use-package cider :ensure t)
 (use-package clojure-mode :ensure t)
 (use-package company :ensure t)
-(use-package clojure-cheatsheet :ensure t)
 (use-package clojure-snippets :ensure t)
 (use-package clojure-mode-extra-font-locking :ensure t)
 (use-package clj-refactor :ensure t)

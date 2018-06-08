@@ -46,10 +46,14 @@ The URL will be added to the kill ring.  If `git-link-open-in-browser'
 is non-nil also call `browse-url'."
 
   (interactive (list (git-link--select-remote)))
-  (let ((remote-host (git-link--remote-host remote)))
-    (if remote-host
+  (let* ((remote-url (git-link--remote-url remote))
+         (remote-info (when remote-url (git-link--parse-remote remote-url)))
+         (branch (git-link--branch)))
+    (if remote-info
         ;;TODO: shouldn't assume https, need service specific handler like others
-        (git-link--new (format "https://%s/%s/tree/%s" (git-link--remote-host remote) (git-link--remote-dir remote) (git-link--branch)))
+        (git-link--new (if (string= branch "master")
+                           (format "https://%s/%s" (car remote-info) (cadr remote-info))
+                           (format "https://%s/%s/tree/%s" (car remote-info) (cadr remote-info) branch)))
       (error  "Remote `%s' is unknown or contains an unsupported URL" remote))))
 
 (use-package dumb-jump

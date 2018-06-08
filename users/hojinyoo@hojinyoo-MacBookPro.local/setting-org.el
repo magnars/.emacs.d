@@ -31,4 +31,9 @@
 ;; (setq org-reverse-note-order t) ;; refiled headline will be the first under the taget
 
 (setq org-confirm-babel-evaluate t)
-;; (add-hook 'org-mode-hook 'paredit-mode)
+
+;; Remove the markup characters, i.e., "/text/" becomes (italized) "text"
+(setq org-hide-emphasis-markers t)
+
+;; for \cite{key}
+(require 'ox-bibtex)

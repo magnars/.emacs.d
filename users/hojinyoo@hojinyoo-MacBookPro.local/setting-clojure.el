@@ -14,7 +14,8 @@
   (put-clojure-indent 'pfor-map 1)
   (put-clojure-indent 'instance 2)
   (put-clojure-indent 'inline 1)
-  (put-clojure-indent 'letk 1))
+  (put-clojure-indent 'letk 1)
+  (put-clojure-indent 'fdef 0))
 
 (defun indent-whole-buffer ()
   "Indent whole buffer."
@@ -44,9 +45,6 @@
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 (add-hook 'clojure-mode-hook 'lint-before-save)
 
-;; let cider use the monorepo
-(setq cider-lein-parameters "monolith with-all :select :default repl :headless :host ::")
-; (setq cider-lein-parameters "monolith with-all :select :default with-profile dev repl :headless :host ::")
 (cider-add-to-alist 'cider-jack-in-lein-plugins "cider/cider-nrepl" (upcase "0.16.0"))
 ;; (setq cider-jack-in-lein-plugins nil)
 
