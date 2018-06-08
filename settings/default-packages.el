@@ -138,11 +138,30 @@
   (projectile-global-mode)
   (setq magit-completing-read-function 'ivy-completing-read))
 
+(declare git-link-tree)
 (use-package git-link
   :ensure t
   :config (setq git-link-open-in-browser t)
   :bind (("C-M-;" . git-link-tree)
          ("C-M-'" . git-link)))
+
+;;; stole from git-link
+(defun git-link-tree (remote)
+  "Create a URL for the current buffer's REMOTE repository homepage.
+The URL will be added to the kill ring.  If `git-link-open-in-browser'
+is non-nil also call `browse-url'."
+
+  (interactive (list (git-link--select-remote)))
+  (let* ((remote-url (git-link--remote-url remote))
+         (remote-info (when remote-url (git-link--parse-remote remote-url)))
+         (branch (git-link--branch)))
+    (if remote-info
+        ;;TODO: shouldn't assume https, need service specific handler like others
+        (git-link--new (if (string= branch "master")
+                           (format "https://%s/%s" (car remote-info) (cadr remote-info))
+                           (format "https://%s/%s/tree/%s" (car remote-info) (cadr remote-info) branch)))
+      (error  "Remote `%s' is unknown or contains an unsupported URL" remote))))
+
 
 (require 'setup-org)
 

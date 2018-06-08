@@ -39,23 +39,6 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package git-link :ensure t)
 
-;;; stole from git-link
-(defun git-link-tree (remote)
-  "Create a URL for the current buffer's REMOTE repository homepage.
-The URL will be added to the kill ring.  If `git-link-open-in-browser'
-is non-nil also call `browse-url'."
-
-  (interactive (list (git-link--select-remote)))
-  (let* ((remote-url (git-link--remote-url remote))
-         (remote-info (when remote-url (git-link--parse-remote remote-url)))
-         (branch (git-link--branch)))
-    (if remote-info
-        ;;TODO: shouldn't assume https, need service specific handler like others
-        (git-link--new (if (string= branch "master")
-                           (format "https://%s/%s" (car remote-info) (cadr remote-info))
-                           (format "https://%s/%s/tree/%s" (car remote-info) (cadr remote-info) branch)))
-      (error  "Remote `%s' is unknown or contains an unsupported URL" remote))))
-
 (use-package dumb-jump
   :ensure t
   :bind (("M-g o" . dumb-jump-go-other-window)
