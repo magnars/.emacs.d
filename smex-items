@@ -1,0 +1,38 @@
+
+;; ----- smex-history -----
+(
+ goto-line
+ magit-blame
+ scala-mode:goto-start-of-code
+ projectile-mode
+ list-packages
+ shell
+ customize-themes
+)
+
+;; ----- smex-data -----
+(
+ (load-file . 3)
+ (cider-jack-in . 1)
+ (customize-themes . 8)
+ (customize-face . 1)
+ (magit-pull . 1)
+ (apropos . 1)
+ (project-find-file . 1)
+ (list-packages . 3)
+ (switch-to-buffer-other-frame . 2)
+ (html-mode . 1)
+ (projectile-mode . 3)
+ (other-frame . 2)
+ (paredit-splice-sexp . 2)
+ (sp-forward-slurp-sexp . 6)
+ (paredit-mode . 2)
+ (magit-log . 1)
+ (magit-diff . 1)
+ (text-scale-increase . 6)
+ (shell . 1)
+ (dired-details-toggle . 1)
+ (scala-mode:goto-start-of-code . 1)
+ (magit-blame . 1)
+ (goto-line . 1)
+)

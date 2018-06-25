@@ -1,11 +1,10 @@
-;; Turn off mouse interface early in startup to avoid momentary display
+;; Keep emacs Custom-settings in separate file
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
 (package-initialize)
-
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -32,6 +31,7 @@
 (add-to-list 'load-path site-lisp-dir)
 
 ;; Keep emacs Custom-settings in separate file
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
@@ -86,17 +86,33 @@
      htmlize
      visual-regexp
      markdown-mode
+     projectile
      fill-column-indicator
      flycheck
      flycheck-pos-tip
      flycheck-clojure
+     clj-refactor
      flx
      f
      flx-ido
-     dired-details
+;     dired-details
      css-eldoc
+     angular-snippets
+     datomic-snippets
      yasnippet
+     perspective
+     find-file-in-project
+     expand-region
+     tagedit
+     jump-char
+     change-inner
+     smart-forward
+     multifiles
+     browse-kill-ring
+     smex
      smartparens
+     scala-mode
+     ido-completing-read+
      ido-vertical-mode
      ido-at-point
      js2-refactor
@@ -118,7 +134,7 @@
      textile-mode
      editorconfig
      diminish
-     zoom-frm
+;     zoom-frm
      smooth-scrolling
      undo-tree)))
 
@@ -242,6 +258,7 @@
 
 ;; Setup key bindings
 (require 'key-bindings)
+;(setq mac-option-key-is-meta t)
 
 ;; Misc
 ;(require 'project-archetypes)
@@ -272,3 +289,6 @@
 ;; Conclude init by setting up specifics for the current user
 (when (file-exists-p user-settings-dir)
   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
+
+(setq mac-option-modifier 'meta)
+(set-default-font "Source Code Pro for Powerline Light")

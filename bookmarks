@@ -1,0 +1,10 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("tsttravel2"
+ (filename . "~/tst/tsttravel2/")
+ (front-context-string . ".DS_Store\n  -rwx")
+ (rear-context-string . "48 Apr 13  2017 ")
+ (position . 267))
+)

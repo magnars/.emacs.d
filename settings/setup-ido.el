@@ -59,7 +59,8 @@
 (ido-at-point-mode)
 
 ;; Use ido everywhere
-(require 'ido-ubiquitous)
+(require 'ido-completing-read+)
+;(require 'ido-ubiquitous)
 (ido-ubiquitous-mode 1)
 
 ;; Fix ido-ubiquitous for newer packages

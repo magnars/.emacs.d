@@ -28,7 +28,7 @@
 
 (defun use-default-theme ()
   (interactive)
-  (load-theme 'default-black)
+  (load-theme 'kingsajz)
   (when (boundp 'magnars/default-font)
     (set-face-attribute 'default nil :font magnars/default-font)))
 
@@ -47,7 +47,7 @@
   (set-default-font "DejaVu Sans Mono")
   (set-face-attribute 'default nil :height 105))
 
-(set-default-font "Source Code Pro Medium")
+(set-default-font "Source Code Pro for Powerline Light")
 
 ;; Don't defer screen updates when performing operations
 (setq redisplay-dont-pause t)
@@ -69,6 +69,7 @@
   (blink-cursor-mode -1))
 
 ;; Make zooming affect frame instead of buffers
+(load "~/.emacs.d/site-lisp/zoom-frm")
 (require 'zoom-frm)
 
 ;; Sweet window-splits
