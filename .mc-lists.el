@@ -48,6 +48,7 @@
         electric-newline-and-maybe-indent
         end-of-buffer
         end-of-defun
+        end-of-visual-line
         eval-and-replace
         eval-last-sexp
         fill-paragraph
@@ -62,6 +63,7 @@
         indent-for-tab-command
         insert-parentheses
         insert-postfix-whitespace
+        isearch-forward-use-region
         js2-beginning-of-line
         js2-end-of-line
         js2-insert-and-indent
@@ -140,8 +142,10 @@
         paredit-wrap-round
         paredit-wrap-round-from-behind
         paredit-wrap-square
+        previous-error-no-select
         quoted-insert
         reverse-region
+        ruby-electric-brace
         save-region-or-current-line
         sgml-delete-tag
         sgml-maybe-name-self
@@ -155,6 +159,8 @@
         subtract-number-at-point
         subword-left
         subword-right
+        subword-right
+        tagedit-forward-barf-tag
         tagedit-forward-slurp-tag
         tagedit-insert-dot
         tagedit-insert-equal
@@ -193,6 +199,7 @@
         cider-macroexpand-1
         cleanup-buffer
         clj-jump-to-other-file
+        completion-at-point
         custom-persp/emacs
         describe-key
         dired-toggle-read-only
@@ -203,6 +210,9 @@
         goto-line-with-feedback
         handle-switch-frame
         ido-switch-buffer
+        js2-enter-key
+        js2r-add-to-globals-annotation
+        js2r-expand-object
         js2r-extract-var
         js2r-rename-var
         jump-between-source-and-test-files
@@ -211,14 +221,19 @@
         magit-copy-buffer-revision
         magit-status
         make-frame
+        markdown-outdent-or-delete
         mc/add-cursor-on-click
         mc/add-cursors-to-all-matches
         multiple-cursors-mode
         ns-prev-frame
+        paredit-backward-kill-word
         persp-switch
         shell
         skewer-load-buffer
         smex
+        subword-left
+        toggle-read-only
+        view-echo-area-messages
         wgrep-change-to-wgrep-mode
         wgrep-finish-edit
         wgrep-save-all-buffers

@@ -1,18 +1,35 @@
 ;;; setup-js2-mode.el --- tweak js2 settings -*- lexical-binding: t; -*-
 
+;;; magnars/js2-mode deps
+(defsubst js2-mode-inside-comment-or-string ()
+  "Return non-nil if inside a comment or string."
+  (or
+   (let ((comment-start
+          (save-excursion
+            (goto-char (point-at-bol))
+            (if (re-search-forward "//" (point-at-eol) t)
+                (match-beginning 0)))))
+     (and comment-start
+          (<= comment-start (point))))
+   (let ((parse-state (save-excursion
+                        (syntax-ppss (point)))))
+     (or (nth 3 parse-state)
+         (nth 4 parse-state)))))
+;;;
+
 (setq-default js2-allow-rhino-new-expr-initializer nil)
 (setq-default js2-auto-indent-p nil)
 (setq-default js2-enter-indents-newline nil)
-(setq-default js2-global-externs '("module" "require" "buster" "sinon" "assert" "refute" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "__dirname" "console" "JSON"))
+(setq-default js2-global-externs '("Audio" "history" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location"))
 (setq-default js2-idle-timer-delay 0.1)
 (setq-default js2-indent-on-enter-key nil)
 (setq-default js2-mirror-mode nil)
 (setq-default js2-strict-inconsistent-return-warning nil)
 (setq-default js2-auto-indent-p t)
-(setq-default js2-include-rhino-externs nil)
-(setq-default js2-include-gears-externs nil)
+(setq-default js2-include-node-externs t)
 (setq-default js2-concat-multiline-strings 'eol)
 (setq-default js2-rebind-eol-bol-keys nil)
+(setq-default js2-basic-offset 2)
 
 ;; Let flycheck handle parse errors
 (setq-default js2-show-parse-errors nil)
@@ -21,8 +38,10 @@
 
 (add-hook 'js2-mode-hook (lambda () (flycheck-mode 1)))
 
+(require 'js2-mode)
 (require 'js2-refactor)
 (js2r-add-keybindings-with-prefix "C-c C-m")
+(add-hook 'js2-mode-hook #'js2-refactor-mode)
 
 (require 'js2-imenu-extras)
 (js2-imenu-extras-setup)
@@ -55,6 +74,9 @@
          (looking-at (regexp-quote close)))
     (forward-char (length close)))
 
+   ;; ((js2-mode-inside-comment-or-string)
+   ;;  (funcall 'self-insert-command 1))
+
    ((and (er--point-inside-string-p)
          (er--point-is-in-comment-p))
     (funcall 'self-insert-command 1))
@@ -86,8 +108,12 @@
         (looking-at "for ")
         (looking-at "while ")
         (looking-at "try ")
+        (looking-at "class ")
         (looking-at "} catch ")
-        (looking-at "} else "))))
+        (looking-at "} else ")
+        (looking-at "export")
+        (looking-at "[^ ]:")
+        (looking-at "[^ ]+("))))
 
 (defun js2r--comma-unless (delimiter)
   (if (looking-at (concat "[\n\t\r ]*" (regexp-quote delimiter)))
@@ -96,23 +122,24 @@
 
 (defun js2r--something-to-close-statement ()
   (cond
-   ((and (js2-block-node-p (js2-node-at-point)) (looking-at " *}")) ";")
    ((not (eolp)) "")
    ((js2-array-node-p (js2-node-at-point)) (js2r--comma-unless "]"))
    ((js2-object-node-p (js2-node-at-point)) (js2r--comma-unless "}"))
    ((js2-object-prop-node-p (js2-node-at-point)) (js2r--comma-unless "}"))
    ((js2-call-node-p (js2-node-at-point)) (js2r--comma-unless ")"))
-   ((js2r--does-not-need-semi) "")
-   (:else ";")))
+   ;;((js2r--does-not-need-semi) "")
+   (:else "")))
 
 (js2r--setup-wrapping-pair "(" ")")
 (js2r--setup-wrapping-pair "{" "}")
 (js2r--setup-wrapping-pair "[" "]")
 (js2r--setup-wrapping-pair "\"" "\"")
 (js2r--setup-wrapping-pair "'" "'")
+(js2r--setup-wrapping-pair "`" "`")
 
 ;;
 
+(define-key js2-mode-map (kbd "M-j") (λ (join-line -1))) ;; Don't steal my join line
 (define-key js2-mode-map (kbd "C-c RET jt") 'jump-to-test-file)
 (define-key js2-mode-map (kbd "C-c RET ot") 'jump-to-test-file-other-window)
 (define-key js2-mode-map (kbd "C-c RET js") 'jump-to-source-file)
@@ -123,6 +150,8 @@
 (define-key js2-mode-map (kbd "C-c RET dp") 'js2r-duplicate-object-property-node)
 
 (define-key js2-mode-map (kbd "C-c RET ta") 'toggle-assert-refute)
+
+(define-key js2-mode-map (kbd "M-j") (λ (join-line -1)))
 
 (defadvice js2r-inline-var (after reindent-buffer activate)
   (cleanup-buffer))
@@ -151,7 +180,6 @@
 ;; When renaming/deleting js-files, check for corresponding testfile
 (define-key js2-mode-map (kbd "C-x C-r") 'js2r-rename-current-buffer-file)
 (define-key js2-mode-map (kbd "C-x C-k") 'js2r-delete-current-buffer-file)
-
 (define-key js2-mode-map (kbd "C-k") 'js2r-kill)
 
 (define-key js2-mode-map (kbd "M-j") (λ (join-line -1)))
@@ -210,13 +238,13 @@
                      (javascript-mode)
                      (let (kill-ring kill-ring-yank-pointer) (kill-comment 1000))
                      (->> (buffer-substring (point-min) (point-max))
-                       (s-trim)
-                       (s-chop-prefix "module.exports = ")
-                       (s-chop-suffix ";")
-                       (json-read-from-string))))
+                          (s-trim)
+                          (s-chop-prefix "module.exports = ")
+                          (s-chop-suffix ";")
+                          (json-read-from-string))))
          (predef (->> settings
-                   (my-aget 'linterOptions)
-                   (my-aget 'predef))))
+                      (my-aget 'linterOptions)
+                      (my-aget 'predef))))
     (--each (append predef nil)
       (add-to-list 'js2-additional-externs it))))
 

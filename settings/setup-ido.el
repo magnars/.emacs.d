@@ -11,14 +11,15 @@
       ido-max-prospects 10)
 
 ;; Try out flx-ido for better flex matching between words
-(require 'flx-ido)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-use-faces nil)
+;; (require 'flx-ido)
+;; (ido-everywhere 1)
+;; (flx-ido-mode 1)
+;; ;; disable ido faces to see flx highlights.
+;; (setq ido-use-faces nil)
 
 ;; flx-ido looks better with ido-vertical-mode
-(require 'ido-vertical-mode)
-(ido-vertical-mode)
+;; (require 'ido-vertical-mode)
+;; (ido-vertical-mode)
 
 ;; C-n/p is more intuitive in vertical layout
 (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
@@ -58,7 +59,8 @@
 (ido-at-point-mode)
 
 ;; Use ido everywhere
-(require 'ido-ubiquitous)
+(require 'ido-completing-read+)
+;(require 'ido-ubiquitous)
 (ido-ubiquitous-mode 1)
 
 ;; Fix ido-ubiquitous for newer packages

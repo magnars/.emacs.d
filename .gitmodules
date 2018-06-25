@@ -1,9 +1,6 @@
 [submodule "site-lisp/yaml-mode"]
         path = site-lisp/yaml-mode
         url = https://github.com/yoshiki/yaml-mode.git
-[submodule "site-lisp/js2-mode"]
-        path = site-lisp/js2-mode
-        url = https://github.com/magnars/js2-mode
 [submodule "site-lisp/jade-mode"]
         path = site-lisp/jade-mode
         url = https://github.com/brianc/jade-mode
@@ -40,9 +37,6 @@
 [submodule "site-lisp/multiple-cursors"]
         path = site-lisp/multiple-cursors
         url = https://github.com/magnars/multiple-cursors.el.git
-[submodule "site-lisp/js2-refactor"]
-        path = site-lisp/js2-refactor
-        url = https://github.com/magnars/js2-refactor.el.git
 [submodule "site-lisp/feature-mode"]
         path = site-lisp/feature-mode
         url = https://github.com/michaelklishin/cucumber.el.git
@@ -94,6 +88,9 @@
 [submodule "site-lisp/fold-this"]
         path = site-lisp/fold-this
         url = https://github.com/magnars/fold-this.el.git
+[submodule "site-lisp/revealjs-mode"]
+        path = site-lisp/revealjs-mode
+        url = https://github.com/cjohansen/revealjs-mode.git
 [submodule "site-lisp/clj-refactor"]
         path = site-lisp/clj-refactor
         url = https://github.com/magnars/clj-refactor.el.git

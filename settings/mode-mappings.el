@@ -34,6 +34,15 @@
 (add-to-list 'auto-mode-alist '("\\.vm$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.ejs$" . html-mode))
 
+;; RevealJS slide sets
+(add-hook 'sgml-mode-hook
+          (lambda ()
+            (save-excursion
+              (if (search-forward "class=\"reveal\"" nil t)
+                  (progn
+                    (require 'revealjs-mode)
+                    (revealjs-mode))))))
+
 ;; JSP
 (autoload 'crappy-jsp-mode "crappy-jsp-mode")
 (add-to-list 'auto-mode-alist '("\\.jsp$" . crappy-jsp-mode))
@@ -78,8 +87,11 @@
 ;; JavaScript
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.es6?$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode))
 (add-to-list 'auto-mode-alist '("\\.jshintrc$" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.jscsrc$" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.babelrc$" . javascript-mode))
 (add-to-list 'magic-mode-alist '("#!/usr/bin/env node" . js2-mode))
 
 ;; Configuration files
@@ -97,7 +109,11 @@
 ;; Markdown
 (autoload 'markdown-mode "markdown-mode")
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.m(ark)?down$" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown$" . markdown-mode))
+
+;; Textile
+(add-to-list 'auto-mode-alist '("\\.textile$" . textile-mode))
 
 ;; org-mode
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))

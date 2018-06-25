@@ -21,6 +21,7 @@
 
 ;; Expand region (increases selected region by semantic units)
 (global-set-key (if is-mac (kbd "C-@") (kbd "C-'")) 'er/expand-region)
+(global-set-key (kbd "C-*") 'er/contract-region)
 
 ;; Experimental multiple-cursors
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
@@ -50,7 +51,7 @@
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 ;; Set anchor to start rectangular-region-mode
-(global-set-key (kbd "H-SPC") 'set-rectangular-region-anchor)
+(global-set-key (kbd "C-M-SPC") 'set-rectangular-region-anchor)
 
 ;; Replace rectangle-text with inline-string-rectangle
 (global-set-key (kbd "C-x r t") 'inline-string-rectangle)
@@ -126,6 +127,10 @@
 (global-set-key (kbd "M-I") 'change-inner)
 (global-set-key (kbd "M-O") 'change-outer)
 
+;; Font size
+(define-key global-map (kbd "C-+") 'zoom-frm-in)
+(define-key global-map (kbd "C--") 'zoom-frm-out)
+
 (global-set-key (kbd "s-i") 'copy-inner)
 (global-set-key (kbd "s-o") 'copy-outer)
 
@@ -188,6 +193,8 @@
 (global-set-key (kbd "<home>") 'beginning-of-buffer)
 (global-set-key (kbd "<next>") 'end-of-buffer)
 (global-set-key (kbd "<end>") 'end-of-buffer)
+(global-set-key (kbd "M-<up>") 'beginning-of-buffer)
+(global-set-key (kbd "M-<down>") 'end-of-buffer)
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 (global-set-key (kbd "H-n") 'goto-next-line-with-same-indentation)
@@ -197,6 +204,9 @@
 (global-set-key (kbd "M-<down>") 'smart-down)
 (global-set-key (kbd "M-<left>") 'smart-backward)
 (global-set-key (kbd "M-<right>") 'smart-forward)
+
+;; Tags
+(global-set-key (kbd "M-?") 'tags-search)
 
 ;; Webjump let's you quickly search google, wikipedia, emacs wiki
 (global-set-key (kbd "C-x g") 'webjump)
@@ -278,7 +288,7 @@
 (global-set-key (kbd "M-s l") 'sort-lines)
 
 ;; Increase number at point (or other change based on prefix arg)
-(global-set-key (kbd "C-+") 'change-number-at-point)
+(global-set-key (kbd "C-M-+") 'change-number-at-point)
 (global-set-key (kbd "C-?") 'subtract-number-at-point)
 (eval-after-load 'undo-tree '(define-key undo-tree-map (kbd "C-?") nil))
 
@@ -309,7 +319,7 @@
 (global-set-key (kbd "M-s f") 'find-name-dired)
 
 ;; Find file in project
-(global-set-key (kbd "C-x o") 'find-file-in-project)
+;;(global-set-key (kbd "C-x o") 'find-file-in-project)
 
 ;; Find file in project, with specific patterns
 (global-unset-key (kbd "C-x C-o")) ;; which used to be delete-blank-lines (also bound to C-c C-<return>)
@@ -344,9 +354,28 @@
 (global-set-key (kbd "C-x C-o sv") (ffip-create-pattern-file-finder "*.svg"))
 (global-set-key (kbd "C-x C-o !") (ffip-create-pattern-file-finder "*"))
 
+;; Set macro counters
+(global-set-key (kbd "<f5>") 'kmacro-set-counter)
+
 ;; View occurrence in occur mode
 (define-key occur-mode-map (kbd "v") 'occur-mode-display-occurrence)
 (define-key occur-mode-map (kbd "n") 'next-line)
 (define-key occur-mode-map (kbd "p") 'previous-line)
+
+(global-set-key (kbd "M-{") '(lambda ()
+                               (interactive)
+                               (if (search-forward "{" nil t)
+                                   (backward-char 1))))
+
+(global-set-key (kbd "M-}") '(lambda ()
+                               (interactive)
+                               (if (search-forward "}" nil t)
+                                   (backward-char 1))))
+
+;; Convert ANSI SGR colored output to faces
+(global-set-key (kbd "C-c C-k") 'colorize-ansi-region)
+
+;; org-agenda
+(global-set-key (kbd "C-c a") 'org-agenda)
 
 (provide 'key-bindings)

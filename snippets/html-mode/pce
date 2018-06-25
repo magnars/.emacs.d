@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: reveal.js code snippet
+# key: pce
+# --
+<pre><code contenteditable>$0</code></pre>$1

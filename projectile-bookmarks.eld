@@ -1,0 +1,1 @@
+("~/tst/clj-svc-feature-toggles/" "~/tst/ui-feature-toggle/" "~/tst/tsttravel2/" "~/.emacs.d/")

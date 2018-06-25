@@ -18,7 +18,7 @@
 (define-key clojure-mode-map [remap paredit-forward] 'clojure-forward-logical-sexp)
 (define-key clojure-mode-map [remap paredit-backward] 'clojure-backward-logical-sexp)
 
-(setq cider-pprint-fn 'pprint)
+;;(setq cider-pprint-fn 'pprint)
 
 (require 'core-async-mode)
 
@@ -61,9 +61,40 @@
 
 (define-key cider-repl-mode-map (kbd "<home>") nil)
 (define-key cider-repl-mode-map (kbd "C-,") 'complete-symbol)
+(define-key cider-repl-mode-map (kbd "C-c C-l") 'cider-repl-clear-buffer)
 (define-key cider-mode-map (kbd "C-,") 'complete-symbol)
 (define-key cider-mode-map (kbd "C-c C-q") 'nrepl-close)
 (define-key cider-mode-map (kbd "C-c C-Q") 'cider-quit)
+(define-key cider-mode-map (kbd "C-c C-l") 'cider-repl-clear-buffer)
+
+(defun cider-repl-command (cmd)
+  (set-buffer (cider-current-repl-buffer))
+  (goto-char (point-max))
+  (insert cmd)
+  (cider-repl-return))
+
+(defun cider-repl-restart ()
+  "Assumes that tools.namespace is used to reload everything on
+   the classpath (which is why we save buffers first)"
+  (interactive)
+  (save-some-buffers)
+  (cider-repl-command "(user/reset!)"))
+
+(defun cider-repl-compile-and-restart ()
+  "Compile the current file and restart the app"
+  (interactive)
+  (cider-load-current-buffer)
+  (cider-repl-command "(user/restart!)"))
+
+(defun cider-repl-run-clj-test ()
+  "Run the clojure.test tests in the current namespace"
+  (interactive)
+  (cider-load-current-buffer)
+  (cider-repl-command "(run-tests)"))
+
+(define-key cider-mode-map (kbd "C-c M-r") 'cider-repl-reset)
+(define-key cider-mode-map (kbd "C-c M-k") 'cider-repl-compile-and-restart)
+(define-key cider-mode-map (kbd "C-c t") 'cider-repl-run-clj-test)
 
 (require 'yesql-ghosts)
 

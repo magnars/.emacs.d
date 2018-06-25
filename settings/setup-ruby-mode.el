@@ -23,6 +23,9 @@
       (ruby--jump-to-lib)
     (ruby--jump-to-test)))
 
+;; Nicely indented hashes/method arguments
+(setq ruby-deep-indent-paren nil)
+
 (define-key ruby-mode-map (kbd "C-c t") 'ruby-jump-to-other)
 
 (provide 'setup-ruby-mode)

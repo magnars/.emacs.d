@@ -14,4 +14,12 @@
           (lambda ()
             (setq imenu-generic-expression markdown-imenu-generic-expression)))
 
+(defun md-slide-insert-diamond ()
+  (interactive)
+  (end-of-line)
+  (insert "<1>")
+  (backward-char))
+
+(define-key markdown-mode-map (kbd "C-c C-d") 'md-slide-insert-diamond)
+
 (provide 'setup-markdown-mode)

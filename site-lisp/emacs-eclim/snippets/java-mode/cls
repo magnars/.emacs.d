@@ -1,0 +1,12 @@
+#contributor : Yves Senn <yves.senn@gmx.ch>
+#name : class ... { ... }
+# --
+package ${1:package.path};
+
+${4:public} class ${2:Name} {
+
+    public $2($3) {
+  
+    }
+    $0
+}

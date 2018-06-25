@@ -1,0 +1,6 @@
+#contributor : Yves Senn <yves.senn@gmx.ch>
+#name : if (...) { ... }
+# --
+if (${1:condition}) {
+  `yas/selected-text`$0
+} 

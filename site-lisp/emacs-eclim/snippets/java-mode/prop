@@ -1,0 +1,13 @@
+#contributor : Yves Senn <yves.senn@gmx.ch>
+#name : property + getProperty(){} + setProperty(...) {}
+# --
+${3:private} ${1:String} ${2:name};
+
+public $1 get${2:$(upcase-initials (eclim--java-symbol-remove-prefix text))}() {
+  return this.$2;
+}
+
+public void set${2:$(upcase-initials (eclim--java-symbol-remove-prefix text))}($1 ${2:$(eclim--java-symbol-remove-prefix text)}) {
+  this.$2 = ${2:$(eclim--java-symbol-remove-prefix text)};
+}
+$0

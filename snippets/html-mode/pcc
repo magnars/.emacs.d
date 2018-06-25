@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: reveal.js console snippet
+# key: pcc
+# --
+<pre><span class="console" contenteditable>$1</span></pre>$2

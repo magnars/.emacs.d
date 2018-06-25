@@ -5,6 +5,7 @@
 (yas-global-mode 1)
 
 ;; Include snippets for stuff
+(load "~/.emacs.d/snippets/buster-snippets.el/buster-snippets")
 (require 'buster-snippets)
 (require 'angular-snippets)
 (require 'datomic-snippets)

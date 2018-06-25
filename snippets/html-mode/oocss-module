@@ -1,8 +1,8 @@
 # key: mod
 # name: oocss-module
 # --
-<div class="mod">
-  <div class="inner">
+<div class="mod shadow">
+  <div class="inner pvn">
     <div class="bd">
       $0
     </div>

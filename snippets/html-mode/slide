@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: slide
+# key: slide
+# --
+<section>
+  <h2>$1</h2>
+  $2
+</section>$3

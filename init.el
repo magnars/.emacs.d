@@ -1,4 +1,10 @@
-;; Turn off mouse interface early in startup to avoid momentary display
+;; Keep emacs Custom-settings in separate file
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
@@ -25,8 +31,12 @@
 (add-to-list 'load-path site-lisp-dir)
 
 ;; Keep emacs Custom-settings in separate file
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
+
+;; Are we on a mac?
+(setq is-mac (equal system-type 'darwin))
 
 ;; Set up appearance early
 (require 'appearance)
@@ -54,16 +64,18 @@
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
-;; Are we on a mac?
-(setq is-mac (equal system-type 'darwin))
-
 ;; Setup packages
 (require 'setup-package)
+
+;; Edit plists
+;(require 'setup-plist)
 
 ;; Install extensions if they're missing
 (defun init--install-packages ()
   (packages-install
    '(magit
+     shell-command
+     eproject
      wgrep
      edn
      inflections
@@ -74,19 +86,36 @@
      htmlize
      visual-regexp
      markdown-mode
+     projectile
      fill-column-indicator
      flycheck
      flycheck-pos-tip
      flycheck-clojure
+     clj-refactor
      flx
      f
      flx-ido
-     dired-details
+;     dired-details
      css-eldoc
+     angular-snippets
+     datomic-snippets
      yasnippet
+     perspective
+     find-file-in-project
+     expand-region
+     tagedit
+     jump-char
+     change-inner
+     smart-forward
+     multifiles
+     browse-kill-ring
+     smex
      smartparens
+     scala-mode
+     ido-completing-read+
      ido-vertical-mode
      ido-at-point
+     js2-refactor
      simple-httpd
      guide-key
      nodejs-repl
@@ -102,8 +131,12 @@
      cider
      yesql-ghosts
      string-edit
-     beginend
-     )))
+     textile-mode
+     editorconfig
+     diminish
+;     zoom-frm
+     smooth-scrolling
+     undo-tree)))
 
 (condition-case nil
     (init--install-packages)
@@ -139,7 +172,7 @@
 (require 'setup-ffip)
 (require 'setup-html-mode)
 (require 'setup-paredit)
-(beginend-global-mode)
+(require 'setup-editorconfig)
 
 (require 'prodigy)
 (global-set-key (kbd "C-x M-m") 'prodigy)
@@ -161,10 +194,12 @@
   (add-hook it 'turn-on-smartparens-mode))
 
 ;; Language specific setup files
+(require 'setup-go-mode)
 (eval-after-load 'js2-mode '(require 'setup-js2-mode))
 (eval-after-load 'ruby-mode '(require 'setup-ruby-mode))
 (eval-after-load 'clojure-mode '(require 'setup-clojure-mode))
 (eval-after-load 'markdown-mode '(require 'setup-markdown-mode))
+(eval-after-load 'elm-mode '(require 'setup-elm-mode))
 
 ;; Load stuff on demand
 (autoload 'skewer-start "setup-skewer" nil t)
@@ -174,6 +209,9 @@
 
 ;; Map files to modes
 (require 'mode-mappings)
+
+;; Calendar stuff
+(require 'setup-calendar)
 
 ;; Highlight escape sequences
 (require 'highlight-escape-sequences)
@@ -220,9 +258,10 @@
 
 ;; Setup key bindings
 (require 'key-bindings)
+;(setq mac-option-key-is-meta t)
 
 ;; Misc
-(require 'project-archetypes)
+;(require 'project-archetypes)
 (require 'my-misc)
 (when is-mac (require 'mac))
 
@@ -240,6 +279,16 @@
 (put 'upcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
 
+;; Diminish modeline clutter
+(require 'diminish)
+(diminish 'yas-minor-mode)
+
+;; Unicode without the hassle
+(require 'unicode-mode)
+
 ;; Conclude init by setting up specifics for the current user
 (when (file-exists-p user-settings-dir)
   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
+
+(setq mac-option-modifier 'meta)
+(set-default-font "Source Code Pro for Powerline Light")

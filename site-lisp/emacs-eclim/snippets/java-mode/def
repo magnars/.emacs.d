@@ -1,0 +1,6 @@
+#contributor : Yves Senn <yves.senn@gmx.ch>
+#name : <method signature> { ... }
+# --
+${1:public} ${3:void} ${4:Name}($5) {
+  $0
+}
