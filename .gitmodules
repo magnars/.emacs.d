@@ -1,15 +1,9 @@
-[submodule "site-lisp/yaml-mode"]
-        path = site-lisp/yaml-mode
-        url = https://github.com/yoshiki/yaml-mode.git
 [submodule "site-lisp/js2-mode"]
         path = site-lisp/js2-mode
         url = https://github.com/magnars/js2-mode
 [submodule "site-lisp/jade-mode"]
         path = site-lisp/jade-mode
         url = https://github.com/brianc/jade-mode
-[submodule "site-lisp/ace-jump-mode"]
-        path = site-lisp/ace-jump-mode
-        url = https://github.com/winterTTr/ace-jump-mode.git
 [submodule "site-lisp/expand-region"]
         path = site-lisp/expand-region
         url = https://github.com/magnars/expand-region.el.git
@@ -76,9 +70,6 @@
 [submodule "site-lisp/crappy-jsp-mode"]
         path = site-lisp/crappy-jsp-mode
         url = https://github.com/magnars/crappy-jsp-mode.git
-[submodule "site-lisp/s"]
-        path = site-lisp/s
-        url = https://github.com/magnars/s.el.git
 [submodule "site-lisp/multifiles"]
         path = site-lisp/multifiles
         url = https://github.com/magnars/multifiles.el.git
@@ -88,9 +79,6 @@
 [submodule "site-lisp/fold-this"]
         path = site-lisp/fold-this
         url = https://github.com/magnars/fold-this.el.git
-[submodule "site-lisp/clj-refactor"]
-        path = site-lisp/clj-refactor
-        url = https://github.com/magnars/clj-refactor.el.git
 [submodule "site-lisp/tern"]
         path = site-lisp/tern
         url = https://github.com/marijnh/tern.git

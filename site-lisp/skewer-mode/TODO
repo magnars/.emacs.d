@@ -1,2 +1,0 @@
- * eval-print-last-expression
- * recover gracefully from long poll timeouts
