@@ -45,7 +45,7 @@
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 (add-hook 'clojure-mode-hook 'lint-before-save)
 
-(cider-add-to-alist 'cider-jack-in-lein-plugins "cider/cider-nrepl" (upcase "0.16.0"))
+;; (cider-add-to-alist 'cider-jack-in-lein-plugins "cider/cider-nrepl" (upcase "0.16.0")) ;; moved to .lein/profile.clj
 ;; (setq cider-jack-in-lein-plugins nil)
 
 ;; (use-package flycheck-tip
@@ -67,7 +67,7 @@
     (cljr-add-keybindings-with-prefix "C-c C-m"))
 (add-hook 'clojure-mode-hook 'clojure-minor-mode-hook)
 
-(cider-add-to-alist 'cider-jack-in-lein-plugins "refactor-nrepl" "2.3.1")
-(cider-add-to-alist 'cider-jack-in-dependencies "acyclic/squiggly-clojure" "0.1.8")
+;; (cider-add-to-alist 'cider-jack-in-lein-plugins "refactor-nrepl" "2.3.1")
+;; (cider-add-to-alist 'cider-jack-in-dependencies "acyclic/squiggly-clojure" "0.1.8")
 
 (provide 'setting-clojure)

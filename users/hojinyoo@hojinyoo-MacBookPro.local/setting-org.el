@@ -36,4 +36,4 @@
 (setq org-hide-emphasis-markers t)
 
 ;; for \cite{key}
-(require 'ox-bibtex)
+;; (require 'ox-bibtex)

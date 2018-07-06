@@ -1,3 +1,3 @@
-(pyvenv-activate "~/env")
+;; (pyvenv-activate "~/env")
 
 (require 'setup-python)

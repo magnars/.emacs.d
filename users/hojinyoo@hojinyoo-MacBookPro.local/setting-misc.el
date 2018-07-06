@@ -6,13 +6,13 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (global-set-key (kbd "C-;") 'switch-to-prev-buffer)
 
-(use-package ace-window
-  :ensure t
-  :config (global-set-key (kbd "M-p") 'ace-window))
+;; (use-package ace-window
+;;   :ensure t
+;;   :config (global-set-key (kbd "M-p") 'ace-window))
 
-(use-package ace-jump-mode
-  :ensure t
-  :config (global-set-key (kbd "C-c w") 'ace-jump-word-mode))
+;; (use-package ace-jump-mode
+;;   :ensure t
+;;   :config (global-set-key (kbd "C-c w") 'ace-jump-word-mode))
 
 ;; (use-package golden-ratio
 ;;   :ensure t
