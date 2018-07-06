@@ -1,6 +1,6 @@
 (use-package rainbow-delimiters :ensure t)
 (use-package rainbow-mode :ensure t)
-(use-package cider :ensure t)
+(use-package cider :ensure t :config (setq cider-inject-dependencies-at-jack-in nil))
 (use-package clojure-mode :ensure t)
 (use-package company :ensure t)
 (use-package clojure-snippets :ensure t)
