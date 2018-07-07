@@ -151,6 +151,12 @@
   (projectile-global-mode)
   (setq magit-completing-read-function 'ivy-completing-read))
 
+;; Represent undo-history as an actual tree (visualize with C-x u)
+(use-package undo-tree
+  :config
+  (setq undo-tree-mode-lighter "")
+  (global-undo-tree-mode))
+
 (declare git-link-tree)
 (use-package git-link
   :config (setq git-link-open-in-browser t)
