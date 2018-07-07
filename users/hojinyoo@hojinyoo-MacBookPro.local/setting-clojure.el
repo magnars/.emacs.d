@@ -3,7 +3,7 @@
 ;;; Code:
 
 (require 'setup-clojure-mode)
-;; (require 'kubemacider)
+(require 'kubemacider)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clojure mode hook and helpers
