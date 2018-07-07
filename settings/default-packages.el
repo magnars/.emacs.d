@@ -1,15 +1,31 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Emacs Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; default-package.el --- Loading default packages
 
-;; save palces in files between sessions
-(use-package saveplace
-  :ensure t
+;;; Commentary:
+;; Default packages
+
+;;; Code:
+
+(use-package rainbow-delimiters)
+(use-package rainbow-mode)
+
+;; expand region
+(use-package expand-region
   :config
-  (setq-default save-place t)           ; FIXME : (save-place-mode 1) for 25.1 or latter
-  (setq save-place-file (expand-file-name ".places" user-emacs-directory)) )
+  (global-set-key (kbd "C-=") 'er/expand-region)
+  ;; Don't use expand-region fast keys
+  (setq expand-region-fast-keys-enabled nil)
+  ;; Show expand-region command used
+  (setq er--show-expansion-message t)
+  (global-set-key (kbd "C-=") 'er/expand-region))
+
+;; save places in files between sessions
+(use-package saveplace
+  :config
+  (save-place-mode 1)
+  (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
 
 ;; code completion
 (use-package company
-  :ensure t
   :config
   (global-company-mode)
   (global-set-key (kbd "TAB") #'company-indent-or-complete-common))
@@ -64,26 +80,22 @@
 ;;           comint-history-isearch t)))
 
 ;; give a unique for buffers
-(use-package uniquify
-  :config
-  (setf uniquify-buffer-name-style 'post-forward-angle-brackets))
+(require 'uniquify)
+(setf uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 ;; navigate frame configurations
 (use-package winner
   :config
-  (progn
-    (winner-mode 1)
-    (windmove-default-keybindings)))
+  (winner-mode 1)
+  (windmove-default-keybindings))
 
 ;; shows the regexp result visually
 (use-package visual-regexp
-  :ensure t
   :config
   (define-key global-map (kbd "C-c q") 'vr/query-replace)
   (define-key global-map (kbd "C-c r") 'vr/replace))
 
 (use-package guide-key
-  :ensure t
   :config
   (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-x v" "C-x 8" "C-x +" "C-h" "C-c"))
   (guide-key-mode 1)
@@ -92,55 +104,45 @@
 
 ;; highlight escape characters
 (use-package highlight-escape-sequences
-  :ensure t
   :config
   (put 'font-lock-regexp-grouping-backslash 'face-alias 'font-lock-builtin-face)
   (put 'hes-escape-backslash-face 'face-alias 'font-lock-builtin-face)
   (put 'hes-escape-sequence-face 'face-alias 'font-lock-builtin-face))
 
 (use-package ivy
-  :ensure t
   :init (ivy-mode 1)
   :bind (("C-c C-r" . ivy-resume)))
 
-(use-package counsel
- :ensure t)
+(use-package counsel)
 
 ;; smex should be later than ivy
 (use-package smex
-  :ensure t
   :config
   (smex-initialize)
   :bind (("M-x" . smex) ("C-c C-c M-x" . execute-extended-command)))
 
 (use-package smartparens
-  :ensure t
   :config
   (require 'smartparens-config)
   (smartparens-global-strict-mode t)
   (sp-use-paredit-bindings))
 
 (use-package projectile
-  :ensure t
   :config
   (projectile-global-mode)
-  (setq projectile-completion-system 'ivy)
-  ;(setq projectile-mode-line '(:eval (format " Projectile[%s]" (projectile-project-name))))
-  )
+  (setq projectile-completion-system 'ivy))
 
-(use-package counsel-projectile :ensure t
+(use-package counsel-projectile
   :config
   (counsel-projectile-mode))
 
 (use-package magit
-  :ensure t
   :config
   (projectile-global-mode)
   (setq magit-completing-read-function 'ivy-completing-read))
 
 (declare git-link-tree)
 (use-package git-link
-  :ensure t
   :config (setq git-link-open-in-browser t)
   :bind (("C-M-;" . git-link-tree)
          ("C-M-'" . git-link)))
@@ -162,30 +164,13 @@ is non-nil also call `browse-url'."
                            (format "https://%s/%s/tree/%s" (car remote-info) (cadr remote-info) branch)))
       (error  "Remote `%s' is unknown or contains an unsupported URL" remote))))
 
-
-(require 'setup-org)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Visual Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (use-package mustard-theme
-;;   :ensure t)
-;; (use-package suscolors-theme
-;;   :ensure t)
 (use-package zenburn-theme
-  :ensure t
   :config (load-theme 'zenburn t))
 (set-face-attribute 'region nil :background "#555")
 
-;; disable fci to avoid the conflict with htmlize
-;; (use-package fill-column-indicator
-;;   :ensure t
-;;   :config
-;;   (setq fci-rule-color "#101010"))
-
-;; (display-time-mode nil)
-
 (use-package smart-mode-line
-  :ensure t
   :config
   ;; (setq powerline-arrow-shape 'curve)
   ;; (setq powerline-default-separator-dir '(right . left))
@@ -200,25 +185,9 @@ is non-nil also call `browse-url'."
   (setq sml/active-background-color "black")
   (sml/setup))
 
-;; (use-package color-theme-sanityinc-tomorrow
-;;   :ensure t
-;;   :init
-;;   (progn
-;;     (load-theme 'sanityinc-tomorrow-night :no-confirm)
-;;     (setf frame-background-mode 'dark)
-;;     (global-hl-line-mode 1)
-;;     (custom-set-faces
-;;      '(cursor               ((t :background "#eebb28")))
-;;      '(diff-added           ((t :foreground "green" :underline nil)))
-;;      '(diff-removed         ((t :foreground "red" :underline nil)))
-;;      '(highlight            ((t :background "black" :underline nil)))
-;;      '(magit-item-highlight ((t :background "black")))
-;;      '(hl-line              ((t :background "gray10"))))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Language General ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package whitespace-cleanup-mode
-  :ensure t
   :init
   (progn
     (setq-default indent-tabs-mode nil)
@@ -232,7 +201,6 @@ is non-nil also call `browse-url'."
   :config (show-paren-mode))
 
 (use-package ggtags
-  :ensure t
   :defer t
   :init
   (progn
@@ -242,23 +210,11 @@ is non-nil also call `browse-url'."
                   (ggtags-mode 1))))))
 
 (use-package yasnippet
-  :ensure t
   :config
   (require 'setup-yasnippet))
 
 (use-package flycheck
-  :ensure t
   :init (global-flycheck-mode))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Specific Language ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; (use-package eshell
-;;   :bind ([f1] . eshell-as)
-;;   :init
-;;   (setf eshell-directory-name (locate-user-emacs-file "local/eshell"))
-;;   :config
-;;   (add-hook 'eshell-mode-hook ; Bad, eshell, bad!
-;;             (lambda ()
-;;               (define-key eshell-mode-map (kbd "<f1>") #'quit-window))))
-
 (provide 'default-packages)
+;;; default-packages.el ends here

@@ -1,7 +1,9 @@
-(require 'setup-clojure-mode)
+;;; setting-clojure.el --- settings for clojure
+;;; Commentary:
+;;; Code:
 
-(add-to-list 'load-path "~/.emacs.d/site-lisp/kubemacider")
-(require 'kubemacider)
+(require 'setup-clojure-mode)
+;; (require 'kubemacider)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; clojure mode hook and helpers
@@ -45,20 +47,13 @@
   (add-hook 'before-save-hook 'delete-trailing-whitespace))
 (add-hook 'clojure-mode-hook 'lint-before-save)
 
-;; (cider-add-to-alist 'cider-jack-in-lein-plugins "cider/cider-nrepl" (upcase "0.16.0")) ;; moved to .lein/profile.clj
-;; (setq cider-jack-in-lein-plugins nil)
-
 ;; (use-package flycheck-tip
 ;;   :ensure t
 ;;   (flycheck-tip-use-timer 'verbose))
 
 (flycheck-clojure-setup)
 (use-package flycheck-pos-tip
-  :ensure t
   :config (setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages))
-
-;; (add-hook 'cider-mode-hook
-;;   (lambda () (setq next-error-function #'flycheck-next-error-function)))
 
 (defun clojure-minor-mode-hook ()
   "My settings for clojure."
@@ -67,7 +62,5 @@
     (cljr-add-keybindings-with-prefix "C-c C-m"))
 (add-hook 'clojure-mode-hook 'clojure-minor-mode-hook)
 
-;; (cider-add-to-alist 'cider-jack-in-lein-plugins "refactor-nrepl" "2.3.1")
-;; (cider-add-to-alist 'cider-jack-in-dependencies "acyclic/squiggly-clojure" "0.1.8")
-
 (provide 'setting-clojure)
+;;; setting-clojure.el ends here

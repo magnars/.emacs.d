@@ -1,1 +1,0 @@
-buster test -F warning

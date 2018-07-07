@@ -1,12 +1,9 @@
-(use-package rainbow-delimiters :ensure t)
-(use-package rainbow-mode :ensure t)
-(use-package cider :ensure t :config (setq cider-inject-dependencies-at-jack-in nil))
-(use-package clojure-mode :ensure t)
-(use-package company :ensure t)
-(use-package clojure-snippets :ensure t)
-(use-package clojure-mode-extra-font-locking :ensure t)
-(use-package clj-refactor :ensure t)
-(use-package flycheck-clojure :ensure t)
+(use-package cider :config (setq cider-inject-dependencies-at-jack-in nil))
+(use-package clojure-mode)
+(use-package clojure-snippets)
+(use-package clojure-mode-extra-font-locking)
+(use-package clj-refactor)
+(use-package flycheck-clojure)
 
 ;; (use-package ob-clojure
 ;;   :ensure t

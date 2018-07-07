@@ -4,8 +4,14 @@
 (setq ns-function-modifier 'hyper)
 
 ;; Setup environment variables from the user's shell.
-(require-package 'exec-path-from-shell)
+(use-package exec-path-from-shell :straight t)
 (exec-path-from-shell-initialize)
+(defun set-exec-path-from-shell-PATH ()
+  (let ((path-from-shell
+         (replace-regexp-in-string "[[:space:]\n]*$" ""
+                                   (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
 
 ;; Norwegian mac-keyboard alt-keys)
 ;; (define-key key-translation-map (kbd "s-8") (kbd "["))

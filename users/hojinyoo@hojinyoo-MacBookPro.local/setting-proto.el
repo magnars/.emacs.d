@@ -1,1 +1,1 @@
-(use-package protobuf-mode :ensure t)
+(use-package protobuf-mode)

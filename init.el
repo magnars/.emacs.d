@@ -1,37 +1,34 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; init.el --- bootstrapping configurations
+
+;;; Commentary:
+;; Init for Emacs
+
+;;; Code:
+
 ;; Set path to dependencies
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
-(package-initialize)
-
-(setq site-lisp-dir
-      (expand-file-name "site-lisp" user-emacs-directory))
-
-(setq settings-dir
-      (expand-file-name "settings" user-emacs-directory))
+(defvar site-lisp-dir (expand-file-name "site-lisp" user-emacs-directory) "Directory for manually maintained packages.")
+(defvar settings-dir (expand-file-name "settings" user-emacs-directory) "Directory for package specific settings.")
 
 ;; Set up load path
 (add-to-list 'load-path settings-dir)
 (add-to-list 'load-path site-lisp-dir)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Keep emacs Custom-settings in separate file
-(setq user-emacs-directory "~/.emacs.d/") ;; for Aquamacs
+;; Set up the package manager, straight.el
+(require 'setup-straight)
+
+;; Keep Emacs custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (if (file-readable-p custom-file) (load custom-file))
 
-;; Settings for currently logged in user
+;; User specific settings
 (setq user-settings-dir
       (concat user-emacs-directory "users/" user-login-name "@" system-name))
 (add-to-list 'load-path user-settings-dir)
 
-;; ;; Add external projects to load path
-;; (dolist (project (directory-files site-lisp-dir t "\\w+"))
-;;   (when (file-directory-p project)
-;;     (add-to-list 'load-path project)))
+;; ;; ;; Add external projects to load path
+;; ;; (dolist (project (directory-files site-lisp-dir t "\\w+"))
+;; ;;   (when (file-directory-p project)
+;; ;;     (add-to-list 'load-path project)))
 
 ;; Write backup files to own directory
 (setq backup-directory-alist
@@ -42,38 +39,21 @@
 ;; Load default setting
 (load "global")
 
-;; Setup package
-(require 'setup-package)
-
 ;; Load packages for any systems
 (require 'default-packages)
-
-;; Set up appearance early
-(require 'appearance)
 
 ;; Lets start with a smattering of sanity
 (require 'sane-defaults)
 
-;; Don't use expand-region fast keys
-;; (setq expand-region-fast-keys-enabled nil)
-
-;; Show expand-region command used
-;; (setq er--show-expansion-message t)
-
 ;; Setup key bindings
 ;; (require 'key-bindings)
-
-;; Misc
-;; (require 'project-archetypes)
-;; (require 'my-misc)
 
 ;; For mac
 (when is-mac (require 'mac))
 
-;; Elisp go-to-definition with M-. and back again with M-,
-;; (autoload 'elisp-slime-nav-mode "elisp-slime-nav")
-;; (add-hook 'emacs-lisp-mode-hook (lambda () (elisp-slime-nav-mode t) (eldoc-mode 1)))
-
 ;; Conclude init by setting up specifics for the current user
 (when (file-exists-p user-settings-dir)
   (mapc 'load (directory-files user-settings-dir nil "^[^#].*el$")))
+
+(provide 'init)
+;;; init.el ends here

@@ -1,3 +1,0 @@
-(source "melpa" "http://melpa.milkbox.net/packages/")
-
-(package-file "__target__-snippets.el")

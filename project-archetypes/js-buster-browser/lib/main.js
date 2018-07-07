@@ -1,1 +1,0 @@
-var __GLOBAL__ = this.__GLOBAL__ || {};

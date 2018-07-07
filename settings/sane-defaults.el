@@ -6,7 +6,7 @@
 
 ;; Also auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
+(setq auto-revert-verbose t)
 
 ;; Show keystrokes in progress
 (setq echo-keystrokes 0.1)
@@ -41,9 +41,6 @@
 
 ;; Remove text in active region if inserting text
 (delete-selection-mode 1)
-
-;; Don't highlight matches with jump-char - it's distracting
-(setq jump-char-lazy-highlight-face nil)
 
 ;; Always display line and column numbers
 (setq line-number-mode t)
