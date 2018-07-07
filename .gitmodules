@@ -4,84 +4,33 @@
 [submodule "site-lisp/jade-mode"]
         path = site-lisp/jade-mode
         url = https://github.com/brianc/jade-mode
-[submodule "site-lisp/expand-region"]
-        path = site-lisp/expand-region
-        url = https://github.com/magnars/expand-region.el.git
 [submodule "site-lisp/php-mode"]
         path = site-lisp/php-mode
         url = https://github.com/ejmr/php-mode.git
-[submodule "site-lisp/perspective"]
-        path = site-lisp/perspective
-        url = https://github.com/magnars/perspective-el.git
 [submodule "site-lisp/delsel"]
         path = site-lisp/delsel
         url = https://github.com/emacsmirror/delsel.git
-[submodule "site-lisp/hardcore-mode"]
-        path = site-lisp/hardcore-mode
-        url = https://github.com/magnars/hardcore-mode.el.git
 [submodule "site-lisp/bash-completion"]
         path = site-lisp/bash-completion
         url = https://github.com/szermatt/emacs-bash-completion.git
 [submodule "site-lisp/eproject"]
         path = site-lisp/eproject
         url = https://github.com/jrockway/eproject.git
-[submodule "site-lisp/jump-char"]
-        path = site-lisp/jump-char
-        url = https://github.com/lewang/jump-char.git
-[submodule "site-lisp/multiple-cursors"]
-        path = site-lisp/multiple-cursors
-        url = https://github.com/magnars/multiple-cursors.el.git
 [submodule "site-lisp/js2-refactor"]
         path = site-lisp/js2-refactor
         url = https://github.com/magnars/js2-refactor.el.git
-[submodule "site-lisp/feature-mode"]
-        path = site-lisp/feature-mode
-        url = https://github.com/michaelklishin/cucumber.el.git
-[submodule "site-lisp/browse-kill-ring"]
-        path = site-lisp/browse-kill-ring
-        url = https://github.com/T-J-Teru/browse-kill-ring.git
-[submodule "site-lisp/find-file-in-project"]
-        path = site-lisp/find-file-in-project
-        url = https://github.com/technomancy/find-file-in-project
 [submodule "site-lisp/smex"]
         path = site-lisp/smex
         url = https://github.com/nonsequitur/smex.git
-[submodule "site-lisp/annoying-arrows-mode"]
-        path = site-lisp/annoying-arrows-mode
-        url = https://github.com/magnars/annoying-arrows-mode.el.git
 [submodule "site-lisp/fill-column-indicator"]
         path = site-lisp/fill-column-indicator
         url = https://github.com/alpaker/Fill-Column-Indicator.git
-[submodule "site-lisp/smart-forward"]
-        path = site-lisp/smart-forward
-        url = https://github.com/magnars/smart-forward.el.git
 [submodule "site-lisp/ido-ubiquitous"]
         path = site-lisp/ido-ubiquitous
         url = https://github.com/DarwinAwardWinner/ido-ubiquitous.git
-[submodule "site-lisp/buster-mode"]
-        path = site-lisp/buster-mode
-        url = https://github.com/magnars/buster-mode.git
-[submodule "site-lisp/change-inner"]
-        path = site-lisp/change-inner
-        url = https://github.com/magnars/change-inner.el.git
 [submodule "site-lisp/crappy-jsp-mode"]
         path = site-lisp/crappy-jsp-mode
         url = https://github.com/magnars/crappy-jsp-mode.git
-[submodule "site-lisp/multifiles"]
-        path = site-lisp/multifiles
-        url = https://github.com/magnars/multifiles.el.git
-[submodule "site-lisp/tagedit"]
-        path = site-lisp/tagedit
-        url = https://github.com/magnars/tagedit.git
-[submodule "site-lisp/fold-this"]
-        path = site-lisp/fold-this
-        url = https://github.com/magnars/fold-this.el.git
-[submodule "site-lisp/tern"]
-        path = site-lisp/tern
-        url = https://github.com/marijnh/tern.git
-[submodule "site-lisp/simplezen"]
-        path = site-lisp/simplezen
-        url = https://github.com/magnars/simplezen.el.git
 [submodule "site-lisp/flycheck"]
         path = site-lisp/flycheck
         url = https://github.com/lunaryorn/flycheck.git
