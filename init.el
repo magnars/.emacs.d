@@ -25,10 +25,10 @@
       (concat user-emacs-directory "users/" user-login-name "@" system-name))
 (add-to-list 'load-path user-settings-dir)
 
-;; ;; ;; Add external projects to load path
-;; ;; (dolist (project (directory-files site-lisp-dir t "\\w+"))
-;; ;;   (when (file-directory-p project)
-;; ;;     (add-to-list 'load-path project)))
+;; Add external projects to load path
+(dolist (project (directory-files site-lisp-dir t "\\w+"))
+  (when (file-directory-p project)
+    (add-to-list 'load-path project)))
 
 ;; Write backup files to own directory
 (setq backup-directory-alist

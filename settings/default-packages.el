@@ -30,6 +30,16 @@
   (global-company-mode)
   (global-set-key (kbd "TAB") #'company-indent-or-complete-common))
 
+;; bash completion
+(use-package bash-completion
+  :config
+  (bash-completion-setup))
+
+;; auto-complete commands
+;; (use-package icicles
+;;   :config
+;;   (icy-mode 1))
+
 ;; dynamic abbrev expansion, similar to auto-completion
 ;; (use-package dabbrev
 ;;   :defer t
