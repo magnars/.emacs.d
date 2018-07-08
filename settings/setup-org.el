@@ -1,5 +1,12 @@
-(use-package org :ensure t)
-(use-package htmlize :ensure t)
+;;; setup-org.el --- org-mode settings
+
+;;; Commentary:
+
+;;; Code:
+
+(require 'org-version)
+
+(use-package htmlize)
 
 ;; Make windmove work in org-mode:
 (add-hook 'org-shiftup-hook 'windmove-up)
@@ -28,12 +35,6 @@
 ;; (define-key global-map (kbd "M-<f6>") 'org-capture)
 
 (setq org-log-done t)
-
-;; (setq org-agenda-files (list "/rp2:~/org/work.org"
-;;                              "/rp2:~/org/home.org"
-;;                              "/rp2:~/org/mobileorg.org"
-;;                              "/rp2:~/org/todo.org"
-;;                              ))
 
 (setq org-todo-keywords
       '((sequence "TODO" "PROG" "|" "DONE" "DELEGATED" "CANCELED")))
@@ -167,7 +168,7 @@ contextual information."
   (cond
    ((eq format 'html)
     (format "<img src=\"%s\" alt=\"%s\"/>" path desc))))
-(org-add-link-type "img-url" nil 'org-custom-link-img-url-export)
+;; (org-add-link-type "img-url" nil 'org-custom-link-img-url-export)
 
 ;; Export function used by Nikola.
 (defun nikola-html-export (infile outfile)
@@ -179,3 +180,4 @@ specified location."
     (write-file outfile nil)))
 
 (provide 'setup-org)
+;;; setup-org.el ends here

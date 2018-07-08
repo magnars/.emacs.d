@@ -180,6 +180,8 @@ is non-nil also call `browse-url'."
                            (format "https://%s/%s/tree/%s" (car remote-info) (cadr remote-info) branch)))
       (error  "Remote `%s' is unknown or contains an unsupported URL" remote))))
 
+(require 'setup-org)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Visual Environment ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package zenburn-theme

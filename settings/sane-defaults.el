@@ -1,6 +1,12 @@
 ;; Allow pasting selection outside of Emacs
 (setq x-select-enable-clipboard t)
 
+;;  Just blink the modeline on errors.
+(setq visible-bell nil)
+(setq ring-bell-function (lambda ()
+                           (invert-face 'mode-line)
+                           (run-with-timer 0.05 nil 'invert-face 'mode-line)))
+
 ;; Auto refresh buffers
 ;; (global-auto-revert-mode 1)
 
