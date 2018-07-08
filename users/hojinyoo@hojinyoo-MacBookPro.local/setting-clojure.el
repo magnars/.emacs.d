@@ -62,5 +62,8 @@
     (cljr-add-keybindings-with-prefix "C-c C-m"))
 (add-hook 'clojure-mode-hook 'clojure-minor-mode-hook)
 
+;; from https://github.com/boot-clj/boot/wiki/Cider-REPL
+(setq cider-boot-parameters "cider repl -s -H :: wait")
+
 (provide 'setting-clojure)
 ;;; setting-clojure.el ends here
