@@ -4,6 +4,8 @@ An ever-changing set of emacs settings. Micro-optimizations are super fun.
 These are used in the [Emacs Rocks](http://emacsrocks.com) screencasts.
 You can also see some thoughts behind the settings on my [What the .emacs.d!?](http://whattheemacsd.com)-blog.
 
+Please note: I have [rebooted my emacs configuration](https://github.com/magnars/emacsd-reboot), so this is no longer being used or maintained. 
+
 ## Setup
 
 To grab all the dependencies:
