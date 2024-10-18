@@ -19,7 +19,7 @@ that are best handled by the package manager.
 
 I use Cocoa Emacs, installed like this:
 
-    brew cask install emacs
+    brew install --cask emacs
 
 ## Tips for using these emacs settings
 
