@@ -1,8 +1,8 @@
 # My emacs settings
 
 An ever-changing set of emacs settings. Micro-optimizations are super fun.
-These are used in the [Emacs Rocks](http://emacsrocks.com) screencasts.
-You can also see some thoughts behind the settings on my [What the .emacs.d!?](http://whattheemacsd.com)-blog.
+These are used in the [Emacs Rocks](https://emacsrocks.com) screencasts.
+You can also see some thoughts behind the settings on my [What the .emacs.d!?](https://whattheemacsd.com)-blog.
 
 Please note: I have [rebooted my emacs configuration](https://github.com/magnars/emacsd-reboot), so this is no longer being used or maintained. 
 
@@ -55,7 +55,7 @@ If you want to use my settings straight out of the box, here are some things to 
 
  * I recommend rebinding Caps Lock to Ctrl and use that instead of the often badly placed Ctrl-key.
 
- * Watch [emacsrocks.com](http://emacsrocks.com)
+ * Watch [emacsrocks.com](https://emacsrocks.com)
 
 ## Survival guide for the first week of emacs
 
